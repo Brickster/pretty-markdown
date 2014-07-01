@@ -1,0 +1,51 @@
+{
+    "format_on_save":false,
+    "format_files_with_extension":[
+        "md",
+        "mdown",
+        "markdown"
+    ],
+
+    // trims all whitespace that isn't for breaking (two spaces)
+    "trim_non_breaking_whitespace":true,
+
+    // balances hashes in header lines
+    "fix_header_balancing":true,
+
+    // convert all bold references to a given style
+    // the defaults settings would convert __bold__ to **bold**
+    "convert_bold":true,
+    "bold_character":"*",
+
+    // convert all italics references to a given style
+    // the defaults settings would convert *italic* to _italic_
+    "convert_italics":true,
+    "italics_character":"_",
+
+    "convert_horizontal_rules":true,
+    "horizontal_rule_style":"---",
+
+    "discover_missing_links":true,
+
+    "fix_ordered_list_numbering":true,
+
+    // alternate unordered list bulleting by indent
+    "alternate_unordered_list_delimiters":true,
+    "unordered_list_delimiters": ["-", "+", " *"],
+
+    "create_hanging_list_indents":true,
+
+    // formats a block of link reference definitions so their links line up
+    // eg,
+    //
+    // [md]: http://markdown.com
+    // [github md]: http://githubmarkdown.com
+    //
+    // becomes
+    //
+    // [md]:        http://markdown.com
+    // [github md]: http://githubmarkdown.com
+    //
+    "format_link_reference_definitions":true,
+    "format_link_reference_definitions_using_tabs":true
+}
