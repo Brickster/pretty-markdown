@@ -1,4 +1,3 @@
-pretty-markdown
-===============
+# PrettyMarkdown #
 
-Sublime Text pluggin for beatifying a markdown file when saving.
+PrettyMarkdown is a Sublime Text plugin for beatifying markdown.
