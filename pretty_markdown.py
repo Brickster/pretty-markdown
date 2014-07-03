@@ -3,7 +3,6 @@ import sublime, sublime_plugin
 def command_names():
     '''Returns a list of all command names.'''
 
-    # TODO: rather than have to keep this list in sync with the settings file, make them discoverable.
     return [
         "trim_non_breaking_whitespace",
         "fix_header_balancing",

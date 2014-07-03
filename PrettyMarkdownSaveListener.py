@@ -2,8 +2,6 @@ from . import pretty_markdown
 
 import sublime_plugin, os.path
 
-# TODO: make each file have it's own listener
-
 class PrettyMarkdownSaveListenerCommand(sublime_plugin.EventListener):
     def on_pre_save(self, view):
         '''Runs Pretty Markdown pre-save actions'''

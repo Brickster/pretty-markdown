@@ -1,8 +1,6 @@
 import sublime_plugin
 from . import pretty_markdown
 
-# TODO: fix why the cursor moves when the file is editted
-
 class FormatMarkdownCommand(sublime_plugin.TextCommand):
     def run(self, edit):
         '''Runs all formatting functions.'''
