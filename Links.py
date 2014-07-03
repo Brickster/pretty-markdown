@@ -1,7 +1,13 @@
-class FormatLinkReferenceDefinitionsCommand(sublime_plugin.TextCommand):
-    def run(self, edit):
+from . import pretty_markdown
+
+class FormatLinkReferenceDefinitionsCommand(pretty_markdown.PrettyMarkdownCommand):
+    def modify(self, text):
         ''''''
 
-class AlternateUnorderedListDelimitersCommand(sublime_plugin.TextCommand):
-    def run(self, edit):
+        return text
+
+class AlternateUnorderedListDelimitersCommand(pretty_markdown.PrettyMarkdownCommand):
+    def modify(self, text):
         ''''''
+
+        return text

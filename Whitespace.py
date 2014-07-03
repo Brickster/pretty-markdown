@@ -1,14 +1,13 @@
-import sublime, sublime_plugin, re
+from . import pretty_markdown
 
-class TrimNonBreakingWhitespaceCommand(sublime_plugin.TextCommand):
-    def run(self, edit):
+import re
+
+class TrimNonBreakingWhitespaceCommand(pretty_markdown.PrettyMarkdownCommand):
+    def modify(self, text):
         '''Trims non-breaking whitespace from all lines.'''
-
-        r = sublime.Region(0, self.view.size())
-        text = self.view.substr(r)
 
         text = text.splitlines()
         text = [line.rstrip() if len(line.rstrip()) != len(line) - 2 else line for line in text]
         text = '\n'.join(text)
 
-        self.view.replace(edit, r, text)
+        return text

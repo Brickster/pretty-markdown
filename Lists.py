@@ -1,12 +1,19 @@
-class DiscoverMissingLinksCommand(sublime_plugin.TextCommand):
-    def run(self, edit):
+from . import pretty_markdown
+
+class DiscoverMissingLinksCommand(pretty_markdown.PrettyMarkdownCommand):
+    def modify(self, text):
         ''''''
 
-class FixOrderedListNumberingCommand(sublime_plugin.TextCommand):
-    def run(self, edit):
+        return text
+
+class FixOrderedListNumberingCommand(pretty_markdown.PrettyMarkdownCommand):
+    def modify(self, text):
         ''''''
 
-class CreateHangingListIndentsCommand(sublime_plugin.TextCommand):
-    def run(self, edit):
+        return text
+
+class CreateHangingListIndentsCommand(pretty_markdown.PrettyMarkdownCommand):
+    def modify(self, text):
         ''''''
 
+        return text
