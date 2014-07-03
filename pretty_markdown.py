@@ -1,13 +1,5 @@
 import sublime, sublime_plugin
 
-def file_extension(path):
-    '''Returns the file extension of the file at a given path. If the path isn't for a file, or it doesn't have one, None is returned.'''
-
-    index = path.rfind('.')
-    if index != -1:
-        return path[index + 1:]
-    return None
-
 def command_names():
     '''Returns a list of all command names.'''
 
