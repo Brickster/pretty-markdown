@@ -6,6 +6,7 @@ def command_names():
     return [
         "trim_non_breaking_whitespace",
         "fix_header_balancing",
+        "convert_headers",
         "convert_bold",
         "convert_italics",
         "convert_horizontal_rules",

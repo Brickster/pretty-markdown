@@ -9,8 +9,10 @@
     // trims all whitespace that isn't for breaking (two spaces)
     "trim_non_breaking_whitespace":true,
 
-    // balances hashes in header lines
+    // for atx style, balances hashes; for setext style, matches the header line to the title length
     "fix_header_balancing":true,
+    "convert_headers":true,
+    "header_style":"atx",
 
     // convert all bold references to a given style
     // the defaults settings would convert __bold__ to **bold**
