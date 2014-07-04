@@ -1,4 +1,4 @@
-from . import pretty_markdown
+import pretty_markdown
 
 class DiscoverMissingLinksCommand(pretty_markdown.PrettyMarkdownCommand):
     def modify(self, text):

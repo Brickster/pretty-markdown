@@ -1,6 +1,5 @@
-from . import pretty_markdown
-
 import re
+import pretty_markdown
 
 class ConvertBoldCommand(pretty_markdown.PrettyMarkdownCommand):
     def modify(self, text):

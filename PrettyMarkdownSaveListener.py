@@ -1,6 +1,6 @@
-from . import pretty_markdown
-
-import sublime_plugin, os.path
+import os.path
+import pretty_markdown
+import sublime_plugin
 
 class PrettyMarkdownSaveListenerCommand(sublime_plugin.EventListener):
     def on_pre_save(self, view):

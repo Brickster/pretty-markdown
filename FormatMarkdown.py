@@ -1,5 +1,5 @@
+import pretty_markdown
 import sublime_plugin
-from . import pretty_markdown
 
 class FormatMarkdownCommand(sublime_plugin.TextCommand):
     def run(self, edit):

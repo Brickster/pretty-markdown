@@ -1,4 +1,5 @@
-import sublime, sublime_plugin
+import sublime
+import sublime_plugin
 
 def command_names():
     '''Returns a list of all command names.'''

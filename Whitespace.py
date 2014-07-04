@@ -1,5 +1,4 @@
-from . import pretty_markdown
-
+import pretty_markdown
 import re
 
 class TrimNonBreakingWhitespaceCommand(pretty_markdown.PrettyMarkdownCommand):
