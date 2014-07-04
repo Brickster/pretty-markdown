@@ -1,13 +1,12 @@
+from utils import header_utils
+
 import pretty_markdown
-import re
 
 class FixHeaderBalancingCommand(pretty_markdown.PrettyMarkdownCommand):
     def modify(self, text):
         '''Balances headers.'''
 
-        text = re.sub(r'^((#+)\s.*?)(?:\s#+)?$', r'\1 \2', text, flags=re.MULTILINE)
-
-        return text
+        return header_utils.fix_header_balancing(text)
 
 class ConvertHeadersCommand(pretty_markdown.PrettyMarkdownCommand):
     def modify(self, text):
