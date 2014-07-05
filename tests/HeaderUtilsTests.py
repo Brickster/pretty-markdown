@@ -2,7 +2,6 @@ from utils import header_utils
 
 import unittest
 
-
 class HeaderUtilsTests(unittest.TestCase):
 
     def test_fixHeaderBalancing_empty(self):
