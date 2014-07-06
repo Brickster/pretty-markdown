@@ -118,7 +118,15 @@ class HorizontalRuleUtilsTests(unittest.TestCase):
 
         self.assertRaises(AssertionError, horizontal_rule_utils.convert_horizontal_rules, '', 'mmm')
 
-    def test_convertHorizontalRules_invalidHorizontalRule_carrots(self):
+    def test_isValidHorizontalRule_true(self):
+
+        self.assertTrue(horizontal_rule_utils.is_valid_horizontal_rule('___'))
+
+    def test_isValidHorizontalRule_false(self):
+
+        self.assertFalse(horizontal_rule_utils.is_valid_horizontal_rule('mmm'))
+
+    def test_isValidHorizontalRule_carrots(self):
 
         # I'm not sure why the pattern matches all carrots
-        self.assertRaises(AssertionError, horizontal_rule_utils.convert_horizontal_rules, '', '^^^')
+        self.assertFalse(horizontal_rule_utils.is_valid_horizontal_rule('^^^'))
