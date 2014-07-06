@@ -14,12 +14,42 @@ class BoldUtilsTests(unittest.TestCase):
 
         self.assertEqual(actual, expected)
 
+    def test_convertBolds_boldedEmptyString(self):
+
+        text = '____'
+        character = '*'
+
+        expected = '____'
+        actual = bold_utils.convert_bolds(text, character)
+
+        self.assertEqual(actual, expected)
+
+    def test_convertBolds_boldedBlankString(self):
+
+        text = '__ __'
+        character = '*'
+
+        expected = '__ __'
+        actual = bold_utils.convert_bolds(text, character)
+
+        self.assertEqual(actual, expected)
+
     def test_convertBolds_noChange(self):
 
         text = '**Bold**'
         character = '*'
 
         expected = '**Bold**'
+        actual = bold_utils.convert_bolds(text, character)
+
+        self.assertEqual(actual, expected)
+
+    def test_convertBolds_singleCharacter(self):
+
+        text = '__B__'
+        character = '*'
+
+        expected = '**B**'
         actual = bold_utils.convert_bolds(text, character)
 
         self.assertEqual(actual, expected)
@@ -60,6 +90,26 @@ class BoldUtilsTests(unittest.TestCase):
         character = '*'
 
         expected = '_**BoldAndItalics**_'
+        actual = bold_utils.convert_bolds(text, character)
+
+        self.assertEqual(actual, expected)
+
+    def test_convertBold_wrappedTextStartsWithSpace(self):
+
+        text = '__ starts with space__'
+        character = '*'
+
+        expected = '__ starts with space__'
+        actual = bold_utils.convert_bolds(text, character)
+
+        self.assertEqual(actual, expected)
+
+    def test_convertBold_wrappedTextEndsWithSpace(self):
+
+        text = '__ends with space __'
+        character = '*'
+
+        expected = '__ends with space __'
         actual = bold_utils.convert_bolds(text, character)
 
         self.assertEqual(actual, expected)
