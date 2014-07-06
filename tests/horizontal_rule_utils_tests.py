@@ -127,6 +127,12 @@ class HorizontalRuleUtilsTests(unittest.TestCase):
         self.assertFalse(horizontal_rule_utils.is_valid_horizontal_rule('mmm'))
 
     def test_isValidHorizontalRule_carrots(self):
+        '''Test for issue: 6
 
-        # I'm not sure why the pattern matches all carrots
+        https://github.com/Brickstertwo/pretty-markdown/issues/6'''
+
         self.assertFalse(horizontal_rule_utils.is_valid_horizontal_rule('^^^'))
+
+    def test_isValidHorizontalRule_carrots(self):
+
+        self.assertFalse(horizontal_rule_utils.is_valid_horizontal_rule(r'\\\\')) # a raw string cannot end in a backslash so "escape" the last one

@@ -1,6 +1,6 @@
 import re
 
-horizontal_rule_pattern = re.compile(r'^[\*-_](?:[^\S\r\n]?[\*-_]){2,}$', flags=re.MULTILINE)
+horizontal_rule_pattern = re.compile(r'^[\*\-_](?:[^\S\r\n]?[\*\-_]){2,}$', flags=re.MULTILINE)
 
 def is_valid_horizontal_rule(horizontal_rule):
     '''Determines if a given horizontal rule is valid.'''
