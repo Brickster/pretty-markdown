@@ -1,5 +1,6 @@
+from utils import horizontal_rule_utils
+
 import pretty_markdown
-import re
 
 class ConvertHorizontalRulesCommand(pretty_markdown.PrettyMarkdownCommand):
     def modify(self, text):
@@ -8,6 +9,4 @@ class ConvertHorizontalRulesCommand(pretty_markdown.PrettyMarkdownCommand):
         A horizontal rule is defined by three or more hyphens, asterisks, or underscores with optional spaces in between.'''
 
         horizontal_rule = pretty_markdown.settings().get('horizontal_rule_style')
-        text = re.sub(r'^[\*-_](?:[^\S\r\n]?[\*-_]){2,}$', horizontal_rule, text, flags=re.MULTILINE)
-
-        return text
+        return horizontal_rule_utils.convert_horizontal_rules(text, horizontal_rule)
