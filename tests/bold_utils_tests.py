@@ -63,3 +63,7 @@ class BoldUtilsTests(unittest.TestCase):
         actual = bold_utils.convert_bolds(text, character)
 
         self.assertEqual(actual, expected)
+
+    def test_convertBolds_wrongCharacter(self):
+
+        self.assertRaises(AssertionError, bold_utils.convert_bolds, '', '^')
