@@ -1,7 +1,7 @@
 import re
 
 def convert_italics(text, character='_'):
-    '''Converts any italics implementation into a given character.
+    '''Converts any italics implementation to use the specified character.
 
     If no character is given, an underscore (_) is used.'''
 
