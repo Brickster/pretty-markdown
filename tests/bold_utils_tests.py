@@ -89,7 +89,17 @@ class BoldUtilsTests(unittest.TestCase):
         text = '___BoldAndItalics___'
         character = '*'
 
-        expected = '_**BoldAndItalics**_'
+        expected = '**_BoldAndItalics_**'
+        actual = bold_utils.convert_bolds(text, character)
+
+        self.assertEqual(actual, expected)
+
+    def test_convertBolds_boldAndItalics_sameCharacter_noChange(self):
+
+        text = '___BoldAndItalics___'
+        character = '_'
+
+        expected = '___BoldAndItalics___'
         actual = bold_utils.convert_bolds(text, character)
 
         self.assertEqual(actual, expected)
