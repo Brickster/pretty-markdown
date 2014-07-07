@@ -89,7 +89,17 @@ class ItalicUtilsTests(unittest.TestCase):
         text = '***BoldAndItalics***'
         character = '_'
 
-        expected = '**_BoldAndItalics_**'
+        expected = '_**BoldAndItalics**_'
+        actual = italic_utils.convert_italics(text, character)
+
+        self.assertEqual(actual, expected)
+
+    def test_convertItalics_boldAndItalics_sameCharacter_noChange(self):
+
+        text = '***BoldAndItalics***'
+        character = '*'
+
+        expected = '***BoldAndItalics***'
         actual = italic_utils.convert_italics(text, character)
 
         self.assertEqual(actual, expected)

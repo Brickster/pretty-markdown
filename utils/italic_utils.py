@@ -9,6 +9,6 @@ def convert_italics(text, character='_'):
 
     assert character in valid_characters, "character must be one of {}".format(valid_characters)
 
-    text = re.sub(r'(?<!\\|\*|_)(\*|_)(?!\1)(\S(?:[\S \t]+?\S)?)(?<!\\)\1', r'{0}\2{0}'.format(character), text)
+    text = re.sub(r'(?<![*_])([*_])((?:[*_]{2})?[^\s*_](?:[\S \t]+\S)?)(?<!\\)\1', r'{0}\2{0}'.format(character), text)
 
     return text
