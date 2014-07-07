@@ -7,7 +7,8 @@ def trim_nonbreaking_whitespace(text):
 
     pattern = re.compile(r'^.*\S  $')
 
-    text = text.splitlines()
+    text = text.split('\n') # use split(...) since splitlines() doesn't keep any trailing blank lines if any are present
+
     text = [line if pattern.match(line) else line.rstrip() for line in text]
     text = '\n'.join(text)
 
