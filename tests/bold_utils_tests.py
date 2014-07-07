@@ -104,6 +104,16 @@ class BoldUtilsTests(unittest.TestCase):
 
         self.assertEqual(actual, expected)
 
+    def test_convertItalics_boldAndItalics_noChange(self):
+
+        text = '_**BoldAndItalics**_'
+        character = '*'
+
+        expected = '_**BoldAndItalics**_'
+        actual = bold_utils.convert_bolds(text, character)
+
+        self.assertEqual(actual, expected)
+
     def test_convertBold_wrappedTextStartsWithSpace(self):
 
         text = '__ starts with space__'
