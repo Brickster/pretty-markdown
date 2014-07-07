@@ -15,9 +15,6 @@ def convert_horizontal_rules(text, horizontal_rule='---'):
 
     assert is_valid_horizontal_rule(horizontal_rule), 'A horizontal rule is defined by three or more hyphens, asterisks, or underscores with optional spaces in between.'
 
-    # text = horizontal_rule_pattern.sub(horizontal_rule, text)
-    # return text
-
     text = text.split('\n')
     prev = text[0]
 
