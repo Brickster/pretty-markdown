@@ -104,6 +104,16 @@ class ItalicUtilsTests(unittest.TestCase):
 
         self.assertEqual(actual, expected)
 
+    def test_convertItalics_boldAndItalics_noChange(self):
+
+        text = '**_BoldAndItalics_**'
+        character = '_'
+
+        expected = '**_BoldAndItalics_**'
+        actual = italic_utils.convert_italics(text, character)
+
+        self.assertEqual(actual, expected)
+
     def test_convertItalics_wrappedTextStartsWithSpace(self):
 
         text = '* starts with space*'
