@@ -124,6 +124,16 @@ class BoldUtilsTests(unittest.TestCase):
 
         self.assertEqual(actual, expected)
 
+    def text_convertBolds_tooManyCharacters(self):
+
+        text = '____too many____'
+        character = '*'
+
+        expected = '____too many____'
+        actual = bold_utils.convert_bolds(text, character)
+
+        self.assertEqual(actual, expected)
+
     def test_convertBolds_wrongCharacter(self):
 
         self.assertRaises(AssertionError, bold_utils.convert_bolds, '', '^')

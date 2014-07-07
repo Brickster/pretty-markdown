@@ -124,6 +124,17 @@ class ItalicUtilsTests(unittest.TestCase):
 
         self.assertEqual(actual, expected)
 
+    def text_convertItalics_tooManyCharacters(self):
+
+        text = '****too many****'
+        character = '_'
+
+        expected = '****too many****'
+        actual = italic_utils.convert_italics(text, character)
+
+        self.assertEqual(actual, expected)
+
+
     def test_convertItalics_wrongCharacter(self):
 
         self.assertRaises(AssertionError, italic_utils.convert_italics, '', '^')
