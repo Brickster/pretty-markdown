@@ -118,6 +118,36 @@ class HorizontalRuleUtilsTests(unittest.TestCase):
 
         self.assertRaises(AssertionError, horizontal_rule_utils.convert_horizontal_rules, '', 'mmm')
 
+    def test_convertHorizontalRules_multipleRules(self):
+
+        text = '---\n***\n___\n* * *'
+        rule = '***'
+
+        expected = '***\n***\n***\n***'
+        actual = horizontal_rule_utils.convert_horizontal_rules(text, rule)
+
+        self.assertEqual(actual, expected)
+
+    def test_convertHorizontalRules_setextH1HeaderFollowedByMultipleRules(self):
+
+        text = 'Header\n===\n---\n---'
+        rule = '***'
+
+        expected = 'Header\n===\n***\n***'
+        actual = horizontal_rule_utils.convert_horizontal_rules(text, rule)
+
+        self.assertEqual(actual, expected)
+
+    def test_convertHorizontalRules_setextH2HeaderFollowedByMultipleRules(self):
+
+        text = 'Header\n---\n---\n---'
+        rule = '***'
+
+        expected = 'Header\n---\n***\n***'
+        actual = horizontal_rule_utils.convert_horizontal_rules(text, rule)
+
+        self.assertEqual(actual, expected)
+
     def test_isValidHorizontalRule_true(self):
 
         self.assertTrue(horizontal_rule_utils.is_valid_horizontal_rule('___'))
