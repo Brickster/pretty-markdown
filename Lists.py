@@ -1,6 +1,6 @@
 import pretty_markdown
 
-class DiscoverMissingLinksCommand(pretty_markdown.PrettyMarkdownCommand):
+class AlternateUnorderedListDelimitersCommand(pretty_markdown.PrettyMarkdownCommand):
     def modify(self, text):
         ''''''
 

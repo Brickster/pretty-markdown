@@ -6,7 +6,7 @@ class FormatLinkReferenceDefinitionsCommand(pretty_markdown.PrettyMarkdownComman
 
         return text
 
-class AlternateUnorderedListDelimitersCommand(pretty_markdown.PrettyMarkdownCommand):
+class DiscoverMissingLinksCommand(pretty_markdown.PrettyMarkdownCommand):
     def modify(self, text):
         ''''''
 
