@@ -89,7 +89,7 @@ class ItalicUtilsTests(unittest.TestCase):
         text = '***BoldAndItalics***'
         character = '_'
 
-        expected = '_**BoldAndItalics**_'
+        expected = '**_BoldAndItalics_**'
         actual = italic_utils.convert_italics(text, character)
 
         self.assertEqual(actual, expected)
@@ -134,7 +134,7 @@ class ItalicUtilsTests(unittest.TestCase):
 
         self.assertEqual(actual, expected)
 
-    def text_convertItalics_tooManyCharacters(self):
+    def test_convertItalics_tooManyCharacters(self):
 
         text = '****too many****'
         character = '_'
@@ -144,6 +144,55 @@ class ItalicUtilsTests(unittest.TestCase):
 
         self.assertEqual(actual, expected)
 
+    def test_convertItalics_italicsInMiddleOfSentence(self):
+
+        text = 'There are *italics* in this sentence.'
+        character = '_'
+
+        expected = 'There are _italics_ in this sentence.'
+        actual = italic_utils.convert_italics(text, character)
+
+        self.assertEqual(actual, expected)
+
+    def test_convertItalics_boldInMiddleOfSentence(self):
+
+        text = 'There is **bold** in this sentence.'
+        character = '_'
+
+        expected = 'There is **bold** in this sentence.'
+        actual = italic_utils.convert_italics(text, character)
+
+        self.assertEqual(actual, expected)
+
+    def test_convertItalics_boldAndItalicsInMiddleOfSentence(self):
+
+        text = 'There is both ***bold and italics*** in this sentence.'
+        character = '_'
+
+        expected = 'There is both **_bold and italics_** in this sentence.'
+        actual = italic_utils.convert_italics(text, character)
+
+        self.assertEqual(actual, expected)
+
+    def test_convertItalics_twoItalicsInARow_fromAsterisks(self):
+
+        text = '*italics*\n***bold and italics***'
+        character = '_'
+
+        expected = '_italics_\n**_bold and italics_**'
+        actual = italic_utils.convert_italics(text, character)
+
+        self.assertEqual(actual, expected)
+
+    def test_convertItalics_twoItalicsInARow_fromUnderscores(self):
+
+        text = '_italics_\n___bold and italics___'
+        character = '*'
+
+        expected = '*italics*\n__*bold and italics*__'
+        actual = italic_utils.convert_italics(text, character)
+
+        self.assertEqual(actual, expected)
 
     def test_convertItalics_wrongCharacter(self):
 
