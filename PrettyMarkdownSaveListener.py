@@ -4,7 +4,7 @@ import sublime_plugin
 
 class PrettyMarkdownSaveListenerCommand(sublime_plugin.EventListener):
     def on_pre_save(self, view):
-        '''Runs Pretty Markdown pre-save actions'''
+        """Runs Pretty Markdown pre-save actions"""
 
         extension = os.path.splitext(view.file_name())[1][1:]
         if extension in pretty_markdown.settings().get('format_files_with_extension'):

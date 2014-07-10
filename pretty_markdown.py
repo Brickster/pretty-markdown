@@ -2,7 +2,7 @@ import sublime
 import sublime_plugin
 
 def command_names():
-    '''Returns a list of all command names.'''
+    """Returns a list of all command names."""
 
     return [
         "trim_non_breaking_whitespace",
@@ -19,21 +19,22 @@ def command_names():
     ]
 
 def settings():
-    '''Retrieves the settings file.'''
+    """Retrieves the settings file."""
 
     return sublime.load_settings("Pretty Markdown.sublime-settings")
 
 class PrettyMarkdownCommand(sublime_plugin.TextCommand):
-    '''Parent for all PrettyMarkdown commands.
+    """Parent for all PrettyMarkdown commands.
 
     Due to my naming convention overlapping with Sublime Text command naming conventions, is_enabled() was defined to return True only
-    for subclasses of PrettyMarkdownCommand.'''
+    for subclasses of PrettyMarkdownCommand.
+    """
 
     def modify(self, text):
         return text
 
     def run(self, edit):
-        '''Converts any bold implementation into the one defined in the settings.'''
+        """Converts any bold implementation into the one defined in the settings."""
 
         r = sublime.Region(0, self.view.size())
         text = self.view.substr(r)
