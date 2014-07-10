@@ -3,9 +3,10 @@ import re
 valid_characters = ['*', "_"]
 
 def convert_bolds(text, character='*'):
-    '''Converts any bold implementation to use the specified character.
+    """Converts any bold implementation to use the specified character.
 
-    If no characeter is supplied, an asterisk (*) is used.'''
+    If no characeter is supplied, an asterisk (*) is used.
+    """
 
     assert character in valid_characters, "character must be one of {}".format(valid_characters)
 
