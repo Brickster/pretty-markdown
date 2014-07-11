@@ -134,12 +134,12 @@ class BoldUtilsTests(unittest.TestCase):
 
         self.assertEqual(actual, expected)
 
-    def test_convertBolds_tooManyCharacters(self):
+    def test_convertBolds_fourDelimiters(self):
 
-        text = '____too many____'
+        text = '____lots of delimiters____'
         character = '*'
 
-        expected = '____too many____'
+        expected = '**__lots of delimiters__**'
         actual = bold_utils.convert_bolds(text, character)
 
         self.assertEqual(actual, expected)
