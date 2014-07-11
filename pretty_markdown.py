@@ -24,17 +24,16 @@ def settings():
     return sublime.load_settings("Pretty Markdown.sublime-settings")
 
 class PrettyMarkdownCommand(sublime_plugin.TextCommand):
-    """Parent for all PrettyMarkdown commands.
 
-    Due to my naming convention overlapping with Sublime Text command naming conventions, is_enabled() was defined to return True only
-    for subclasses of PrettyMarkdownCommand.
-    """
+    """Parent for all PrettyMarkdown commands."""
 
     def modify(self, text):
         return text
 
     def run(self, edit):
-        """Converts any bold implementation into the one defined in the settings."""
+        """Runs the command.
+
+        This method actually doesn't do anything on its own. It delegates to modify(self, text) which will be overridden by child classes."""
 
         r = sublime.Region(0, self.view.size())
         text = self.view.substr(r)
@@ -44,4 +43,9 @@ class PrettyMarkdownCommand(sublime_plugin.TextCommand):
         self.view.replace(edit, r, text)
 
     def is_enabled(self):
+        """Determines whether the command is enabled.
+
+        Due to my naming convention overlapping with Sublime Text command naming conventions, is_enabled() was defined to return True only
+        for subclasses of PrettyMarkdownCommand.
+        """
         return self.__class__.__name__ != 'PrettyMarkdownCommand'
