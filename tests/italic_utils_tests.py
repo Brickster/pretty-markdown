@@ -139,7 +139,7 @@ class ItalicUtilsTests(unittest.TestCase):
         text = '****too many****'
         character = '_'
 
-        expected = '****too many****'
+        expected = '**_*too many*_**'
         actual = italic_utils.convert_italics(text, character)
 
         self.assertEqual(actual, expected)
