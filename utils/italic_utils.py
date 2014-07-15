@@ -1,6 +1,6 @@
 import re
 
-valid_characters = ['*', "_"]
+VALID_CHARACTERS = ['*', "_"]
 
 def convert_italics(text, character='_'):
     """Converts any italics implementation to use the specified character.
@@ -8,7 +8,7 @@ def convert_italics(text, character='_'):
     If no character is given, an underscore (_) is used.
     """
 
-    assert character in valid_characters, 'character must be one of {}'.format(valid_characters)
+    assert character in VALID_CHARACTERS, 'character must be one of {}'.format(VALID_CHARACTERS)
 
     if character == '*':
         other_char = '_'

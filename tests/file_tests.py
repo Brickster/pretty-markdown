@@ -7,9 +7,9 @@ from utils import whitespace_utils
 import os.path
 import unittest
 
-files_directory_path = os.path.join(os.path.dirname(__file__), 'files')
-dirty_file_path = os.path.join(files_directory_path, 'dirty.md')
-clean_file_path = os.path.join(files_directory_path, 'clean.md')
+FILES_DIRECTORY_PATH = os.path.join(os.path.dirname(__file__), 'files')
+DIRTY_FILE_PATH = os.path.join(FILES_DIRECTORY_PATH, 'dirty.md')
+CLEAN_FILE_PATH = os.path.join(FILES_DIRECTORY_PATH, 'clean.md')
 
 class FileTests(unittest.TestCase):
 
@@ -17,9 +17,9 @@ class FileTests(unittest.TestCase):
 
     def test_dirtyToClean(self):
 
-        with open(dirty_file_path) as dirty_file:
+        with open(DIRTY_FILE_PATH) as dirty_file:
             text = dirty_file.read()
-        with open(clean_file_path) as clean_file:
+        with open(CLEAN_FILE_PATH) as clean_file:
             expected = clean_file.read()
 
         actual = bold_utils.convert_bolds(text)
@@ -32,7 +32,7 @@ class FileTests(unittest.TestCase):
 
     def test_cleanToClean(self):
 
-        with open(clean_file_path) as clean_file:
+        with open(CLEAN_FILE_PATH) as clean_file:
             expected = clean_file.read()
 
         actual = bold_utils.convert_bolds(expected)
