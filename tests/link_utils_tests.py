@@ -59,3 +59,12 @@ class LinkUtilsTests(unittest.TestCase):
     #     is_reference = link_utils.is_link_reference_definition(text)
 
     #     self.assertFalse(is_reference)
+
+    def test_formatLinkReferenceDefitions(self):
+
+        text = 'This is the text'
+
+        expected = text
+        actual = link_utils.format_link_reference_definitions(text)
+
+        self.assertEqual(actual, expected)
