@@ -33,7 +33,8 @@ class PrettyMarkdownCommand(sublime_plugin.TextCommand):
     def run(self, edit):
         """Runs the command.
 
-        This method actually doesn't do anything on its own. It delegates to modify(self, text) which will be overridden by child classes."""
+        This method actually doesn't do anything on its own. It delegates to modify(self, text) which will be overridden by child classes.
+        """
 
         r = sublime.Region(0, self.view.size())
         text = self.view.substr(r)
