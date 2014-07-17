@@ -1,4 +1,5 @@
 import re
+import util_utils
 
 LINK_REFERENCE_DEFINITION_PATTERN = re.compile(r'^\[(.*)\]:\s+(.+?(?:\s+".*")?$)')
 
@@ -19,31 +20,4 @@ def _format_links(links):
 def format_link_reference_definitions(text):
     """Formats groups of link reference definitions so that their links all line up."""
 
-    text = text.split('\n')
-    link_group = []
-    output = []
-
-    for line in text:
-
-        is_link_definition = is_link_reference_definition(line)
-        if not is_link_definition and link_group:
-
-            formatted_links = _format_links(link_group)
-
-            output += formatted_links
-            output.append(line)
-            link_group = []
-
-        elif is_link_definition and text.index(line) == len(text) - 1:
-
-            link_group.append(line)
-            output += _format_links(link_group)
-
-        elif is_link_definition:
-            link_group.append(line)
-        else:
-            output.append(line)
-
-    text = '\n'.join(output)
-
-    return text
+    return util_utils.process_groups(text, is_group_member=is_link_reference_definition, process_group=_format_links)
