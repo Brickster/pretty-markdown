@@ -62,9 +62,69 @@ class LinkUtilsTests(unittest.TestCase):
 
     def test_formatLinkReferenceDefitions(self):
 
-        text = 'This is the text'
+        text = 'I use [Google][] and sometimes [Bing][].\n\n[Google]: http://google.com\n[IGN]: http://ign.com\n\nGoogle is better though.'
+
+        expected = 'I use [Google][] and sometimes [Bing][].\n\n[Google]: http://google.com\n[IGN]:    http://ign.com\n\nGoogle is better though.'
+        actual = link_utils.format_link_reference_definitions(text)
+
+        self.assertEqual(actual, expected)
+
+    def test_formatLinkReferenceDefitions_noLinks(self):
+
+        text = 'This is just text.'
 
         expected = text
+        actual = link_utils.format_link_reference_definitions(text)
+
+        self.assertEqual(actual, expected)
+
+    def test_formatLinkReferenceDefitions_oneLink(self):
+
+        text = '[Google]: http://google.com'
+
+        expected = text
+        actual = link_utils.format_link_reference_definitions(text)
+
+        self.assertEqual(actual, expected)
+
+    def test_formatLinkReferenceDefitions_twoLinks(self):
+
+        text = '[Google]: http://google.com\n[IGN]: http://ign.com'
+
+        expected = '[Google]: http://google.com\n[IGN]:    http://ign.com'
+        actual = link_utils.format_link_reference_definitions(text)
+
+        self.assertEqual(actual, expected)
+
+    def test_formatLinkReferenceDefitions_multipleGroups(self):
+
+        text = """This is [Markdown][].
+
+[Markdown]: http://daringfireball.net/projects/markdown/
+
+You can use it to write HTML that is not ugly due to messy [ordered lists][] and [links][].
+
+[ordered lists]: http://daringfireball.net/projects/markdown/syntax#list
+[links]: http://daringfireball.net/projects/markdown/syntax#link
+
+For instance, I can link to [Google][] and [Bing][].
+
+[Google]: http://google.com
+[Bing]: http://bing.com"""
+
+        expected = """This is [Markdown][].
+
+[Markdown]: http://daringfireball.net/projects/markdown/
+
+You can use it to write HTML that is not ugly due to messy [ordered lists][] and [links][].
+
+[ordered lists]: http://daringfireball.net/projects/markdown/syntax#list
+[links]:         http://daringfireball.net/projects/markdown/syntax#link
+
+For instance, I can link to [Google][] and [Bing][].
+
+[Google]: http://google.com
+[Bing]:   http://bing.com"""
         actual = link_utils.format_link_reference_definitions(text)
 
         self.assertEqual(actual, expected)
