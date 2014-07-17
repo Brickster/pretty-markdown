@@ -2,6 +2,7 @@ from utils import bold_utils
 from utils import header_utils
 from utils import horizontal_rule_utils
 from utils import italic_utils
+from utils import link_utils
 from utils import whitespace_utils
 
 import os.path
@@ -26,6 +27,7 @@ class FileTests(unittest.TestCase):
         actual = header_utils.fix_header_balancing(actual)
         actual = horizontal_rule_utils.convert_horizontal_rules(actual)
         actual = italic_utils.convert_italics(actual)
+        actual = link_utils.format_link_reference_definitions(actual)
         actual = whitespace_utils.trim_nonbreaking_whitespace(actual)
 
         self.assertEqual(actual, expected)

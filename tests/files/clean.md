@@ -33,3 +33,16 @@ Header
 Header2
 -------
 ---
+
+## Links ##
+
+## Referenced ##
+
+You can use [Google][] or [Bing][] to search the internet.
+
+[Google]: http://google.com
+[Bing]:   http://bing.com
+
+You can also use [DuckDuckGo][] but I never have.
+
+[DuckDuckGo]: https://duckduckgo.com/
