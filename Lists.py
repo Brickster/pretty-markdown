@@ -6,7 +6,8 @@ class AlternateUnorderedListDelimitersCommand(pretty_markdown.PrettyMarkdownComm
     def modify(self, text):
         """Alternates the delimiters in unordered lists according to their indentation."""
 
-        return list_utils.alternate_unordered_list_delimiters(text)
+        delimiters = pretty_markdown.settings().get('unordered_list_delimiters')
+        return list_utils.alternate_unordered_list_delimiters(text, delimiters)
 
 class FixOrderedListNumberingCommand(pretty_markdown.PrettyMarkdownCommand):
     def modify(self, text):
