@@ -33,7 +33,7 @@
 
     // alternate unordered list bulleting by indent
     "alternate_unordered_list_delimiters":true,
-    "unordered_list_delimiters": ["-", "+", " *"],
+    "unordered_list_delimiters": ["-", "+", "*"],
 
     "create_hanging_list_indents":true,
 
