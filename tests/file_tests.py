@@ -3,6 +3,7 @@ from utils import header_utils
 from utils import horizontal_rule_utils
 from utils import italic_utils
 from utils import link_utils
+from utils import list_utils
 from utils import whitespace_utils
 
 import os.path
@@ -28,6 +29,7 @@ class FileTests(unittest.TestCase):
         actual = horizontal_rule_utils.convert_horizontal_rules(actual)
         actual = italic_utils.convert_italics(actual)
         actual = link_utils.format_link_reference_definitions(actual)
+        actual = list_utils.alternate_unordered_list_delimiters(actual)
         actual = whitespace_utils.trim_nonbreaking_whitespace(actual)
 
         self.assertEqual(actual, expected)

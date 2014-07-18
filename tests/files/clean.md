@@ -46,3 +46,18 @@ You can use [Google][] or [Bing][] to search the internet.
 You can also use [DuckDuckGo][] but I never have.
 
 [DuckDuckGo]: https://duckduckgo.com/
+
+## Lists ##
+
+- Item 1
+- Item 2
+    + Item 1.1
+    + Item 1.2
+    + Item 1.3
+        * Item 1.3.1
+            - Item 1.3.1.1
+            - Item 1.3.1.2
+        * Item 1.3.1
+- Item 3
+    + Item 3.1
+- Item 4
