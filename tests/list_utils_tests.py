@@ -289,4 +289,4 @@ class ListUtilsTests(unittest.TestCase):
         expected = text
         actual = list_utils.fix_ordered_list_numbering(text)
 
-        self.assertTrue(actual, expected)
+        self.assertEqual(actual, expected)
