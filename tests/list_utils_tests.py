@@ -363,11 +363,83 @@ class ListUtilsTests(unittest.TestCase):
     # fix_ordered_list_numbering
     #
 
-    def test_fixOrderedListNumbering_doesNothing(self):
+    def test_fixOrderedListNumbering(self):
 
-        text = '3. item one'
+        text = '2. item one'
+
+        expected = '1. item one'
+        actual = list_utils.fix_ordered_list_numbering(text)
+
+        self.assertEqual(actual, expected)
+
+    def test_fixOrderedListNumbering_escaped(self):
+
+        text = '\1986. It was a great year.'
+
+        expected = '\1986. It was a great year.'
+        actual = list_utils.fix_ordered_list_numbering(text)
+
+        self.assertEqual(actual, expected)
+
+    def test_fixOrderedListNumbering_notAnOrderedList(self):
+
+        text = '+ item one'
 
         expected = text
+        actual = list_utils.fix_ordered_list_numbering(text)
+
+        self.assertEqual(actual, expected)
+
+    def test_fixOrderedListNumbering_noChange(self):
+
+        text = '1. item one'
+
+        expected = text
+        actual = list_utils.fix_ordered_list_numbering(text)
+
+        self.assertEqual(actual, expected)
+
+    def test_fixOrderedListNumbering_oneLevel(self):
+
+        text = '2. item one\n3. item two\n1. item three'
+
+        expected = '1. item one\n2. item two\n3. item three'
+        actual = list_utils.fix_ordered_list_numbering(text)
+
+        self.assertEqual(actual, expected)
+
+    def test_fixOrderedListNumbering_twoLevels(self):
+
+        text = '2. item one\n\t2. sub item\n3. item two\n1. item three'
+
+        expected = '1. item one\n\t1. sub item\n2. item two\n3. item three'
+        actual = list_utils.fix_ordered_list_numbering(text)
+
+        self.assertEqual(actual, expected)
+
+    def test_fixOrderedListNumbering_twoLevels_spaces(self):
+
+        text = '2. item one\n    2. sub item\n3. item two\n1. item three'
+
+        expected = '1. item one\n    1. sub item\n2. item two\n3. item three'
+        actual = list_utils.fix_ordered_list_numbering(text)
+
+        self.assertEqual(actual, expected)
+
+    def test_fixOrderedListNumbering_manyLevels(self):
+
+        text = '2. item one\n\t2. sub item\n3. item two\n\t55. sub item\n\t\t2. sub sub item 1\n\t\t3. sub sub item 2\n1. item three'
+
+        expected = '1. item one\n\t1. sub item\n2. item two\n\t1. sub item\n\t\t1. sub sub item 1\n\t\t2. sub sub item 2\n3. item three'
+        actual = list_utils.fix_ordered_list_numbering(text)
+
+        self.assertEqual(actual, expected)
+
+    def test_fixOrderedListNumbering_manyLevels_tabsAndSpaces(self):
+
+        text = '2. item one\n\t2. sub item\n3. item two\n    55. sub item\n\t    2. sub sub item 1\n        3. sub sub item 2\n1. item three'
+
+        expected = '1. item one\n\t1. sub item\n2. item two\n    1. sub item\n\t    1. sub sub item 1\n        2. sub sub item 2\n3. item three'
         actual = list_utils.fix_ordered_list_numbering(text)
 
         self.assertEqual(actual, expected)

@@ -53,7 +53,28 @@ def _is_ordered_list_item(text):
 def _format_ordered_list(list):
     """Fixes the number for ordered lists."""
 
-    return list
+    output = []
+    counts = [1]
+
+    for item in list:
+
+        tab_count = _tab_count(ORDERED_LIST_ITEM_PATTERN.match(item).group(1))
+        if tab_count == len(counts):
+            # add new one level
+            counts.append(1)
+        elif tab_count < len(counts) - 1:
+            # remove all greater tab counts
+            counts = counts[:tab_count + 1]
+
+        count = counts[tab_count]
+
+        new_item = ORDERED_LIST_ITEM_PATTERN.sub(r'\g<1>{}\g<2>'.format(count), item) # explicit group definition to not be confused with digit
+        output.append(new_item)
+        
+        count += 1
+        counts[tab_count] = count
+
+    return output
 
 def fix_ordered_list_numbering(text):
     """Fixes the number for ordered lists."""
