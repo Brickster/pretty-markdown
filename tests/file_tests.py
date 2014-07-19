@@ -44,7 +44,7 @@ class FileTests(unittest.TestCase):
         actual = text
 
         for _ in range(2):
-            actual = bold_utils.convert_bolds(text)
+            actual = bold_utils.convert_bolds(actual)
             actual = header_utils.fix_header_balancing(actual)
             actual = horizontal_rule_utils.convert_horizontal_rules(actual)
             actual = italic_utils.convert_italics(actual)
