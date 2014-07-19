@@ -1,12 +1,12 @@
 import re
 import util_utils
 
-LIST_ITEM_PATTERN = re.compile(r'^((?:\s{4}|\t)*)[-*+](\s+.*$)')
+UNORDERED_LIST_ITEM_PATTERN = re.compile(r'^((?:\s{4}|\t)*)[-*+](\s+.*$)')
 
 def _is_unordered_list_item(text):
     """Determines if a string is an unordered list item."""
 
-    return text is not None and LIST_ITEM_PATTERN.match(text) is not None
+    return text is not None and UNORDERED_LIST_ITEM_PATTERN.match(text) is not None
 
 def _tabCount(text):
     """Determines tab count."""
@@ -24,11 +24,11 @@ def _format_unordered_list(list, delimiters = ['-', '+', '*']):
 
     for item in list:
 
-        tab_count = _tabCount(LIST_ITEM_PATTERN.match(item).group(1))
+        tab_count = _tabCount(UNORDERED_LIST_ITEM_PATTERN.match(item).group(1))
         delimiter_index = tab_count % len(delimiters)
         delimiter = delimiters[delimiter_index]
 
-        new_item = LIST_ITEM_PATTERN.sub(r'\1{}\2'.format(delimiter), item)
+        new_item = UNORDERED_LIST_ITEM_PATTERN.sub(r'\1{}\2'.format(delimiter), item)
         output.append(new_item)
 
     return output
