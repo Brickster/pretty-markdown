@@ -2,7 +2,7 @@ import re
 
 SETEXT_HEADER_PATTERN = re.compile(r'^(?:={3,}|-{3,})$')
 
-def _is_setext_header(text):
+def is_setext_header(text):
     """Determines if text is a setext type header line."""
 
     return text is not None and SETEXT_HEADER_PATTERN.match(text) is not None

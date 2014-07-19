@@ -72,61 +72,61 @@ class HeaderUtilsTests(unittest.TestCase):
         self.assertEqual(actual, expected)
 
     #
-    # _is_setext_header
+    # is_setext_header
     #
 
-    def test__isSetextHeader_equals(self):
+    def test_isSetextHeader_equals(self):
 
         text = '==='
-        is_setext = header_utils._is_setext_header(text)
+        is_setext = header_utils.is_setext_header(text)
 
         self.assertTrue(is_setext)
 
-    def test__isSetextHeader_dash(self):
+    def test_isSetextHeader_dash(self):
 
         text = '---'
-        is_setext = header_utils._is_setext_header(text)
+        is_setext = header_utils.is_setext_header(text)
 
         self.assertTrue(is_setext)
 
-    def test__isSetextHeader_tooFew(self):
+    def test_isSetextHeader_tooFew(self):
 
         text = '=='
-        is_setext = header_utils._is_setext_header(text)
+        is_setext = header_utils.is_setext_header(text)
 
         self.assertFalse(is_setext)
 
-    def test__isSetextHeader_wrongCharacter(self):
+    def test_isSetextHeader_wrongCharacter(self):
 
         text = '**'
-        is_setext = header_utils._is_setext_header(text)
+        is_setext = header_utils.is_setext_header(text)
 
         self.assertFalse(is_setext)
 
-    def test__isSetextHeader_textLineStartsWithSetextHeader(self):
+    def test_isSetextHeader_textLineStartsWithSetextHeader(self):
 
         text = '==== this starts with a setext style header'
-        is_setext = header_utils._is_setext_header(text)
+        is_setext = header_utils.is_setext_header(text)
 
         self.assertFalse(is_setext)
 
-    def test__isSetextHeader_empty(self):
+    def test_isSetextHeader_empty(self):
 
         text = ''
-        is_setext = header_utils._is_setext_header(text)
+        is_setext = header_utils.is_setext_header(text)
 
         self.assertFalse(is_setext)
 
-    def test__isSetextHeader_blank(self):
+    def test_isSetextHeader_blank(self):
 
         text = '   '
-        is_setext = header_utils._is_setext_header(text)
+        is_setext = header_utils.is_setext_header(text)
 
         self.assertFalse(is_setext)
 
-    def test__isSetextHeader_none(self):
+    def test_isSetextHeader_none(self):
 
         text = None
-        is_setext = header_utils._is_setext_header(text)
+        is_setext = header_utils.is_setext_header(text)
 
         self.assertFalse(is_setext)
