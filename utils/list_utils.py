@@ -4,6 +4,8 @@ import util_utils
 LIST_ITEM_PATTERN = re.compile(r'^((?:\s{4}|\t)*)[-*+](\s+.*$)')
 
 def _is_unordered_list_item(text):
+    """Determines if a string is an unordered list item."""
+
     return text is not None and LIST_ITEM_PATTERN.match(text) is not None
 
 def _tabCount(text):
@@ -16,6 +18,7 @@ def _tabCount(text):
     return count
 
 def _format_unordered_list(list, delimiters = ['-', '+', '*']):
+    """Alternates the delimiters in unordered lists according to their indentation."""
 
     output = []
 
