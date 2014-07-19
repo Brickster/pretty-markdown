@@ -15,7 +15,7 @@ def _tabCount(text):
 
     return count
 
-def _format_list(list, delimiters = ['-', '+', '*']):
+def _format_unordered_list(list, delimiters = ['-', '+', '*']):
 
     output = []
 
@@ -36,5 +36,5 @@ def alternate_unordered_list_delimiters(text, delimiters = ['-', '+', '*']):
     process_parameters = {'delimiters': delimiters}
     return util_utils.process_groups(text,
                                      is_group_member=_is_unordered_list_item,
-                                     process_group=_format_list,
+                                     process_group=_format_unordered_list,
                                      process_group_parameters=process_parameters)
