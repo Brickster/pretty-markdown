@@ -11,9 +11,9 @@ class AlternateUnorderedListDelimitersCommand(pretty_markdown.PrettyMarkdownComm
 
 class FixOrderedListNumberingCommand(pretty_markdown.PrettyMarkdownCommand):
     def modify(self, text):
-        """"""
+        """Fixes the number for ordered lists."""
 
-        return text
+        return list_utils.fix_ordered_list_numbering(text)
 
 class CreateHangingListIndentsCommand(pretty_markdown.PrettyMarkdownCommand):
     def modify(self, text):

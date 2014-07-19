@@ -41,3 +41,18 @@ def alternate_unordered_list_delimiters(text, delimiters = ['-', '+', '*']):
                                      is_group_member=_is_unordered_list_item,
                                      process_group=_format_unordered_list,
                                      process_group_parameters=process_parameters)
+
+def _is_ordered_list_item(text):
+    """Determines if a string is an ordered list item."""
+
+    return False
+
+def _format_ordered_list(list):
+    """Fixes the number for ordered lists."""
+
+    return list
+
+def fix_ordered_list_numbering(text):
+    """Fixes the number for ordered lists."""
+
+    return util_utils.process_groups(text, is_group_member=_is_ordered_list_item, process_group=_format_ordered_list)

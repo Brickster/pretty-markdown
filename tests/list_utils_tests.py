@@ -195,11 +195,24 @@ class ListUtilsTests(unittest.TestCase):
         text = None
         is_item = list_utils._is_unordered_list_item(text)
 
-        self.assertFalse(is_item) 
+        self.assertFalse(is_item)
 
     def test__isUnorderedListItem_multipleItems(self):
 
         text = '- item one\n- item two'
         is_item = list_utils._is_unordered_list_item(text)
 
-        self.assertFalse(is_item) 
+        self.assertFalse(is_item)
+
+    #
+    # fix_ordered_list_numbering
+    #
+
+    def test_fixOrderedListNumbering_doesNothing(self):
+
+        text = '3. item one'
+
+        expected = text
+        actual = list_utils.fix_ordered_list_numbering(text)
+
+        self.assertTrue(actual, expected)
