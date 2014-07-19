@@ -50,6 +50,8 @@ You can also use [DuckDuckGo][] but I never have.
 
 ## Lists ##
 
+### Unordered ###
+
 - Item 1
 * Item 2
     + Item 1.1
@@ -62,3 +64,16 @@ You can also use [DuckDuckGo][] but I never have.
 + Item 3
     - Item 3.1
 - Item 4
+
+### Ordered ###
+
+2. Item 1
+3. Item 2
+    4. Item 2.1
+    5. Item 2.1
+6. Item 3
+    55. Item 3.1
+        1. Item 3.1.1
+        7. Item 3.1.2
+            1. Item 3.1.2.1
+2. Item 4
