@@ -279,6 +279,80 @@ class ListUtilsTests(unittest.TestCase):
         self.assertFalse(is_item)
 
     #
+    # _tab_count
+    #
+
+    def test__tabCount_none(self):
+
+        text = None
+        tab_count = list_utils._tab_count(text)
+
+        self.assertEqual(tab_count, 0)
+
+    def test__tabCount_empty(self):
+
+        text = ''
+        tab_count = list_utils._tab_count(text)
+
+        self.assertEqual(tab_count, 0)
+
+    def test__tabCount_blank(self):
+
+        text = '  '
+        tab_count = list_utils._tab_count(text)
+
+        self.assertEqual(tab_count, 0)
+
+    def test__tabCount_zero(self):
+
+        text = 'No tabs'
+        tab_count = list_utils._tab_count(text)
+
+        self.assertEqual(tab_count, 0)
+
+    def test__tabCount_one(self):
+
+        text = '\tOne tab'
+        tab_count = list_utils._tab_count(text)
+
+        self.assertEqual(tab_count, 1)
+
+    def test__tabCount_two(self):
+
+        text = '\t\tTwo tab'
+        tab_count = list_utils._tab_count(text)
+
+        self.assertEqual(tab_count, 2)
+
+    def test__tabCount_many(self):
+
+        text = '\t\t\t\t\t\tMany tabs'
+        tab_count = list_utils._tab_count(text)
+
+        self.assertEqual(tab_count, 6)
+
+    def test__tabCount_spaces_one(self):
+
+        text = '    One tab'
+        tab_count = list_utils._tab_count(text)
+
+        self.assertEqual(tab_count, 1)
+
+    def test__tabCount_spaces_many(self):
+
+        text = '    ' * 6 + 'Many tab'
+        tab_count = list_utils._tab_count(text)
+
+        self.assertEqual(tab_count, 6)
+
+    def test__tabCount_mixed(self):
+
+        text = '\t    \t\t        Mixed tab types'
+        tab_count = list_utils._tab_count(text)
+
+        self.assertEqual(tab_count, 6)
+
+    #
     # fix_ordered_list_numbering
     #
 

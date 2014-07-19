@@ -13,8 +13,10 @@ def _tab_count(text):
     """Determines tab count."""
 
     count = 0
-    count += text.count('\t')
-    count += int(text.count(' ') / 4)
+
+    if text is not None:
+        count += text.count('\t')
+        count += int(text.count(' ') / 4)
 
     return count
 
