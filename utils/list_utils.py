@@ -2,7 +2,7 @@ import re
 import util_utils
 
 UNORDERED_LIST_ITEM_PATTERN = re.compile(r'^((?:\s{4}|\t)*)[-*+](\s+.*$)')
-ORDERED_LIST_ITEM_PATTERN = re.compile(r'^((?:\s{4}|\t)*)\d(\.\s+.*$)')
+ORDERED_LIST_ITEM_PATTERN = re.compile(r'^((?:\s{4}|\t)*)\d+(\.\s+.*$)')
 
 def _is_unordered_list_item(text):
     """Determines if a string is an unordered list item."""

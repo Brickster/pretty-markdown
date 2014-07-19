@@ -215,6 +215,13 @@ class ListUtilsTests(unittest.TestCase):
 
         self.assertTrue(is_item)
 
+    def test__isOrderedListItem_multipleDigits(self):
+
+        text = '11. item'
+        is_item = list_utils._is_ordered_list_item(text)
+
+        self.assertTrue(is_item)
+
     def test__isOrderedListItem_subItem_spaces(self):
 
         text = '    2. item'
