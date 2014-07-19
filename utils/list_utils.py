@@ -9,7 +9,7 @@ def _is_unordered_list_item(text):
 
     return text is not None and UNORDERED_LIST_ITEM_PATTERN.match(text) is not None
 
-def _tabCount(text):
+def _tab_count(text):
     """Determines tab count."""
 
     count = 0
@@ -25,7 +25,7 @@ def _format_unordered_list(list, delimiters = ['-', '+', '*']):
 
     for item in list:
 
-        tab_count = _tabCount(UNORDERED_LIST_ITEM_PATTERN.match(item).group(1))
+        tab_count = _tab_count(UNORDERED_LIST_ITEM_PATTERN.match(item).group(1))
         delimiter_index = tab_count % len(delimiters)
         delimiter = delimiters[delimiter_index]
 
