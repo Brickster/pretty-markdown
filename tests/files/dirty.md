@@ -21,6 +21,7 @@ ___bold and italics___
 ***bold and italics***
 **_bold and italics_**
 __*bold and italics*__
+****bold and italics****
 
 ## Horizontal Rules ##
 
