@@ -236,6 +236,13 @@ class ListUtilsTests(unittest.TestCase):
 
         self.assertFalse(is_item)
 
+    def test__isOrderedListItem_false_notPeriodDelimited(self):
+
+        text = '1, Item'
+        is_item = list_utils._is_ordered_list_item(text)
+
+        self.assertFalse(is_item)
+
     def test__isOrderedListItem_unorderedItem(self):
 
         text = '1 This is an unordered item'
