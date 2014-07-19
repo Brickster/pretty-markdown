@@ -2,6 +2,7 @@ import re
 import util_utils
 
 UNORDERED_LIST_ITEM_PATTERN = re.compile(r'^((?:\s{4}|\t)*)[-*+](\s+.*$)')
+ORDERED_LIST_ITEM_PATTERN = re.compile(r'^((?:\s{4}|\t)*)\d(.\s+.*$)')
 
 def _is_unordered_list_item(text):
     """Determines if a string is an unordered list item."""
@@ -45,7 +46,7 @@ def alternate_unordered_list_delimiters(text, delimiters = ['-', '+', '*']):
 def _is_ordered_list_item(text):
     """Determines if a string is an ordered list item."""
 
-    return False
+    return text is not None and ORDERED_LIST_ITEM_PATTERN.match(text) is not None
 
 def _format_ordered_list(list):
     """Fixes the number for ordered lists."""

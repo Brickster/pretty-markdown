@@ -205,6 +205,73 @@ class ListUtilsTests(unittest.TestCase):
         self.assertFalse(is_item)
 
     #
+    # _is_unordered_list_item
+    #
+
+    def test__isOrderedListItem(self):
+
+        text = '1. item'
+        is_item = list_utils._is_ordered_list_item(text)
+
+        self.assertTrue(is_item)
+
+    def test__isOrderedListItem_subItem_spaces(self):
+
+        text = '    2. item'
+        is_item = list_utils._is_ordered_list_item(text)
+
+        self.assertTrue(is_item)
+
+    def test__isOrderedListItem_subItem_tab(self):
+
+        text = '\t3. item'
+        is_item = list_utils._is_ordered_list_item(text)
+
+        self.assertTrue(is_item)
+
+    def test__isOrderedListItem_false(self):
+
+        text = 'This is just text.'
+        is_item = list_utils._is_ordered_list_item(text)
+
+        self.assertFalse(is_item)
+
+    def test__isOrderedListItem_unorderedItem(self):
+
+        text = '1 This is an unordered item'
+        is_item = list_utils._is_ordered_list_item(text)
+
+        self.assertFalse(is_item)
+
+    def test__isOrderedListItem_empty(self):
+
+        text = ''
+        is_item = list_utils._is_ordered_list_item(text)
+
+        self.assertFalse(is_item)
+
+    def test__isOrderedListItem_blank(self):
+
+        text = '    '
+        is_item = list_utils._is_ordered_list_item(text)
+
+        self.assertFalse(is_item)
+
+    def test__isOrderedListItem_none(self):
+
+        text = None
+        is_item = list_utils._is_ordered_list_item(text)
+
+        self.assertFalse(is_item)
+
+    def test__isOrderedListItem_multipleItems(self):
+
+        text = '1. item one\n2. item two'
+        is_item = list_utils._is_ordered_list_item(text)
+
+        self.assertFalse(is_item)
+
+    #
     # fix_ordered_list_numbering
     #
 
