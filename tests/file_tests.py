@@ -30,6 +30,7 @@ class FileTests(unittest.TestCase):
         actual = italic_utils.convert_italics(actual)
         actual = link_utils.format_link_reference_definitions(actual)
         actual = list_utils.alternate_unordered_list_delimiters(actual)
+        actual = list_utils.fix_ordered_list_numbering(actual)
         actual = whitespace_utils.trim_nonbreaking_whitespace(actual)
 
         self.assertEqual(actual, expected)
@@ -50,6 +51,7 @@ class FileTests(unittest.TestCase):
             actual = italic_utils.convert_italics(actual)
             actual = link_utils.format_link_reference_definitions(actual)
             actual = list_utils.alternate_unordered_list_delimiters(actual)
+            actual = list_utils.fix_ordered_list_numbering(actual)
             actual = whitespace_utils.trim_nonbreaking_whitespace(actual)
 
         self.assertEqual(actual, expected)
@@ -63,6 +65,9 @@ class FileTests(unittest.TestCase):
         actual = header_utils.fix_header_balancing(actual)
         actual = horizontal_rule_utils.convert_horizontal_rules(actual)
         actual = italic_utils.convert_italics(actual)
+        actual = link_utils.format_link_reference_definitions(actual)
+        actual = list_utils.alternate_unordered_list_delimiters(actual)
+        actual = list_utils.fix_ordered_list_numbering(actual)
         actual = whitespace_utils.trim_nonbreaking_whitespace(actual)
 
         self.assertEqual(actual, expected)
