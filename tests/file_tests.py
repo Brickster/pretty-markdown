@@ -34,6 +34,26 @@ class FileTests(unittest.TestCase):
 
         self.assertEqual(actual, expected)
 
+    def test_dirtyToCleanToClean(self):
+
+        with open(DIRTY_FILE_PATH) as dirty_file:
+            text = dirty_file.read()
+        with open(CLEAN_FILE_PATH) as clean_file:
+            expected = clean_file.read()
+
+        actual = text
+
+        for _ in range(2):
+            actual = bold_utils.convert_bolds(text)
+            actual = header_utils.fix_header_balancing(actual)
+            actual = horizontal_rule_utils.convert_horizontal_rules(actual)
+            actual = italic_utils.convert_italics(actual)
+            actual = link_utils.format_link_reference_definitions(actual)
+            actual = list_utils.alternate_unordered_list_delimiters(actual)
+            actual = whitespace_utils.trim_nonbreaking_whitespace(actual)
+
+        self.assertEqual(actual, expected)
+
     def test_cleanToClean(self):
 
         with open(CLEAN_FILE_PATH) as clean_file:
