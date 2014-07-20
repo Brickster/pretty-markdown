@@ -26,14 +26,22 @@ __*bold and italics*__
 ## Horizontal Rules ##
 
 --
+
 ---
+
 ----
+
 - - -
-Header
-======
+
 Header2
 -------
+
 ___
+
+- - -
+***
+___
+---
 
 ## Links ##
 

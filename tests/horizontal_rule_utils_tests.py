@@ -4,6 +4,10 @@ import unittest
 
 class HorizontalRuleUtilsTests(unittest.TestCase):
 
+    #
+    # convert_horizontal_rules
+    #
+
     def test_convertHorizontalRules_empty(self):
 
         text = ''
@@ -123,7 +127,17 @@ class HorizontalRuleUtilsTests(unittest.TestCase):
         text = '---\n***\n___\n* * *'
         rule = '***'
 
-        expected = '***\n***\n***\n***'
+        expected = '***\n***\n___\n* * *'
+        actual = horizontal_rule_utils.convert_horizontal_rules(text, rule)
+
+        self.assertEqual(actual, expected)
+
+    def test_convertHorizontalRules_multipleRules_allOnNewLines(self):
+
+        text = '---\n\n***\n\n___\n\n* * *'
+        rule = '***'
+
+        expected = '***\n\n***\n\n***\n\n***'
         actual = horizontal_rule_utils.convert_horizontal_rules(text, rule)
 
         self.assertEqual(actual, expected)
@@ -133,7 +147,17 @@ class HorizontalRuleUtilsTests(unittest.TestCase):
         text = 'Header\n===\n---\n---'
         rule = '***'
 
-        expected = 'Header\n===\n***\n***'
+        expected = 'Header\n===\n---\n---'
+        actual = horizontal_rule_utils.convert_horizontal_rules(text, rule)
+
+        self.assertEqual(actual, expected)
+
+    def test_convertHorizontalRules_setextH1HeaderFollowedByMultipleRules_allOnNewLines(self):
+
+        text = 'Header\n===\n\n---\n\n---'
+        rule = '***'
+
+        expected = 'Header\n===\n\n***\n\n***'
         actual = horizontal_rule_utils.convert_horizontal_rules(text, rule)
 
         self.assertEqual(actual, expected)
@@ -143,10 +167,24 @@ class HorizontalRuleUtilsTests(unittest.TestCase):
         text = 'Header\n---\n---\n---'
         rule = '***'
 
-        expected = 'Header\n---\n***\n***'
+        expected = 'Header\n---\n---\n---'
         actual = horizontal_rule_utils.convert_horizontal_rules(text, rule)
 
         self.assertEqual(actual, expected)
+
+    def test_convertHorizontalRules_setextH2HeaderFollowedByMultipleRules_allOnNewLines(self):
+
+        text = 'Header\n---\n\n---\n\n---'
+        rule = '***'
+
+        expected = 'Header\n---\n\n***\n\n***'
+        actual = horizontal_rule_utils.convert_horizontal_rules(text, rule)
+
+        self.assertEqual(actual, expected)
+
+    #
+    # is_valid_horizontal_rule
+    #
 
     def test_isValidHorizontalRule_true(self):
 

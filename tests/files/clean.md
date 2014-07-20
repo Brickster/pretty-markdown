@@ -26,13 +26,21 @@ _italics_
 ## Horizontal Rules ##
 
 --
+
 ---
+
 ---
+
 ---
-Header
-======
+
 Header2
 -------
+
+---
+
+---
+***
+___
 ---
 
 ## Links ##

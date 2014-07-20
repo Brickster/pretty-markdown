@@ -19,15 +19,13 @@ def convert_horizontal_rules(text, horizontal_rule='---'):
     assert is_valid_horizontal_rule(horizontal_rule), 'A horizontal rule is defined by three or more hyphens, asterisks, or underscores with optional spaces in between.'
 
     text = text.split('\n')
-    prev = text[0]
+    prev = None
 
-    # convert prev if it's a horizontal rule
-    prev = HORIZONTAL_RULE_PATTERN.sub(horizontal_rule, prev)
+    result = []
+    for cur in text:
 
-    result = [prev]
-    for cur in text[1:]:
-        # the current line can only be a horizontal rule if the previous line is blank or a rule itself
-        if (len(prev.strip()) == 0 or header_utils.is_setext_header(prev) or HORIZONTAL_RULE_PATTERN.match(prev) is not None):
+        # the current line can only be a horizontal rule if the previous line is blank
+        if prev is None or len(prev.strip()) == 0:
             cur = HORIZONTAL_RULE_PATTERN.sub(horizontal_rule, cur)
 
         result.append(cur)
