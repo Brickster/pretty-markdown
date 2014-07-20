@@ -30,7 +30,10 @@
     "convert_horizontal_rules":true,
     "horizontal_rule_style":"---",
 
+    // finds all missing reference link definitions and adds them to the closest group of definitions
+    // optionally, you can specify a default for any missing links
     "discover_missing_links":true,
+    "default_missing_link_definition":"404",
 
     "fix_ordered_list_numbering":true,
 
