@@ -53,7 +53,7 @@ __*bold and italics*__
 
 Header2
 -------
-Header2
+NotAHeader
 ***
 
 ___

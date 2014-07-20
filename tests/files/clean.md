@@ -53,7 +53,7 @@ _italics_
 
 Header2
 -------
-Header2
+NotAHeader
 ***
 
 ---
