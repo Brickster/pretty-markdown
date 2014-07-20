@@ -11,6 +11,21 @@ def is_setext_header(text):
 def fix_header_balancing(text):
     """Balances headers."""
 
+    # fix atx headers
     text = re.sub(r'^((#+)\s.*?)(?:\s#+)?$', r'\1 \2', text, flags=re.MULTILINE)
+
+    # setext headers
+    prev = None
+    output = []
+
+    for line in text.split('\n'):
+
+        if prev is not None and is_setext_header(line) and len(prev.strip()) != 0:
+            line = line[0] * len(prev)
+
+        output.append(line)
+        prev = line
+
+    text = '\n'.join(output)
 
     return text

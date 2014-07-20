@@ -2,10 +2,28 @@
 
 ## Headers ##
 
+### ATX ###
+
 # H1 #
 ## H2 ##
 ### H3 ###
 #### H4 ####
+
+### Setext ###
+
+Header 1
+========
+Header 1
+========
+Header 1
+========
+
+Header 2
+--------
+Header 2
+--------
+Header 2
+--------
 
 ## Whitespace ##
 
@@ -35,6 +53,8 @@ _italics_
 
 Header2
 -------
+Header2
+***
 
 ---
 

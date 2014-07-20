@@ -71,6 +71,71 @@ class HeaderUtilsTests(unittest.TestCase):
 
         self.assertEqual(actual, expected)
 
+    def test_fixHeaderBalancing_setext_h1(self):
+
+        text = 'Header\n==='
+
+        expected = 'Header\n======'
+        actual = header_utils.fix_header_balancing(text)
+
+        self.assertEqual(actual, expected)
+
+    def test_fixHeaderBalancing_setext_h2(self):
+
+        text = 'Header\n---'
+
+        expected = 'Header\n------'
+        actual = header_utils.fix_header_balancing(text)
+
+        self.assertEqual(actual, expected)
+
+    def test_fixHeaderBalancing_setext_tooMany(self):
+
+        text = 'Header\n----------------'
+
+        expected = 'Header\n------'
+        actual = header_utils.fix_header_balancing(text)
+
+        self.assertEqual(actual, expected)
+
+
+    def test_fixHeaderBalancing_setext_alreadyBalanced(self):
+
+        text = 'Header\n------'
+
+        expected = text
+        actual = header_utils.fix_header_balancing(text)
+
+        self.assertEqual(actual, expected)
+
+    def test_fixHeaderBalancing_setext_notAHeader(self):
+
+        text = 'Header\n***'
+
+        expected = text
+        actual = header_utils.fix_header_balancing(text)
+
+        self.assertEqual(actual, expected)
+
+    def test_fixHeaderBalancing_setext_multiple(self):
+
+        text = 'Header 1\n===\nHeader 2\n----'
+
+        expected = 'Header 1\n========\nHeader 2\n--------'
+        actual = header_utils.fix_header_balancing(text)
+
+        self.assertEqual(actual, expected)
+
+    def test_fixHeaderBalancing_setext_ruleAsAHeader(self):
+        """Confirms that rules can be a header title when followed by a setext header line."""
+
+        text = '---\n-------'
+
+        expected = '---\n---'
+        actual = header_utils.fix_header_balancing(text)
+
+        self.assertEqual(actual, expected)
+
     #
     # is_setext_header
     #
