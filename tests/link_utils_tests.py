@@ -4,6 +4,10 @@ import unittest
 
 class LinkUtilsTests(unittest.TestCase):
 
+    #
+    # is_link_reference_definition
+    #
+
     def test_isLinkReferenceDefinition_empty(self):
 
         text = ''
@@ -60,6 +64,10 @@ class LinkUtilsTests(unittest.TestCase):
         is_reference = link_utils.is_link_reference_definition(text)
 
         self.assertFalse(is_reference)
+
+    #
+    # format_link_reference_definitions
+    #
 
     def test_formatLinkReferenceDefitions(self):
 
@@ -129,3 +137,16 @@ For instance, I can link to [Google][] and [Bing][].
         actual = link_utils.format_link_reference_definitions(text)
 
         self.assertEqual(actual, expected)
+
+    #
+    # discover_missing_links
+    #
+
+    def test_discoverMissingLinks_doesNothing(self):
+
+        text = 'This has a missing [link][] definition.'
+
+        expected = text
+        actual = link_utils.discover_missing_links(text)
+
+        self.assertEqual(actual, expected)       

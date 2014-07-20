@@ -21,3 +21,8 @@ def format_link_reference_definitions(text):
     """Formats groups of link reference definitions so that their links all line up."""
 
     return util_utils.process_groups(text, is_group_member=is_link_reference_definition, process_group=_format_links)
+
+def discover_missing_links(text):
+    """Adds empty link definitions for reference links."""
+
+    return text
