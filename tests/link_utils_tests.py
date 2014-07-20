@@ -53,12 +53,13 @@ class LinkUtilsTests(unittest.TestCase):
 
         self.assertFalse(is_reference)
 
-    # def test_isLinkReferenceDefinition_containsTitle_inWrongOrder(self):
+    @unittest.skip("later enhancement for issue #12")
+    def test_isLinkReferenceDefinition_containsTitle_inWrongOrder(self):
 
-    #     text = '[Google]: "This is in the wrong order" http://google.com'
-    #     is_reference = link_utils.is_link_reference_definition(text)
+        text = '[Google]: "This is in the wrong order" http://google.com'
+        is_reference = link_utils.is_link_reference_definition(text)
 
-    #     self.assertFalse(is_reference)
+        self.assertFalse(is_reference)
 
     def test_formatLinkReferenceDefitions(self):
 
