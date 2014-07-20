@@ -24,6 +24,9 @@
     "convert_italics":true,
     "italics_character":"_",
 
+    // converts all horizontal rules to a given style
+    // only horizontal rules that are preceded by a blank line will be converted. This is to avoid accidentally creating an
+    // H2 setext header if the preferred style is '---'
     "convert_horizontal_rules":true,
     "horizontal_rule_style":"---",
 
