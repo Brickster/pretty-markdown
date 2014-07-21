@@ -36,12 +36,12 @@
     "default_missing_link_definition":"404",
 
     "fix_ordered_list_numbering":true,
+    // right justifies the numbers in an ordered list
+    "justify_ordered_list_numbering":true,
 
     // alternate unordered list bulleting by indent
     "alternate_unordered_list_delimiters":true,
     "unordered_list_delimiters": ["-", "+", "*"],
-
-    "create_hanging_list_indents":true,
 
     // formats a block of link reference definitions so their links line up
     // eg,

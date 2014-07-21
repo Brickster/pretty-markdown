@@ -15,8 +15,8 @@ class FixOrderedListNumberingCommand(pretty_markdown.PrettyMarkdownCommand):
 
         return list_utils.fix_ordered_list_numbering(text)
 
-class CreateHangingListIndentsCommand(pretty_markdown.PrettyMarkdownCommand):
+class JustifyOrderedListNumberingCommand(pretty_markdown.PrettyMarkdownCommand):
     def modify(self, text):
-        """"""
+        """Right justifies the numbers in ordered lists."""
 
         return text
