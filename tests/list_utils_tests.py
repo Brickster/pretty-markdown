@@ -122,6 +122,24 @@ class ListUtilsTests(unittest.TestCase):
 
         self.assertEqual(actual, expected)
 
+    def test_alternateUnorderedListDelimiters_itemContainsMultipleParagraphs(self):
+
+        text = """- Item
+
+    It has multiple paragraphs.
+
+    * Sub item"""
+        delimiters = ['-', '+']
+
+        expected = """- Item
+
+    It has multiple paragraphs.
+
+    + Sub item"""
+        actual = list_utils.fix_ordered_list_numbering(text)
+
+        self.assertEqual(actual, expected)
+
 
     #
     # _is_unordered_list_item
@@ -440,6 +458,23 @@ class ListUtilsTests(unittest.TestCase):
         text = '2. item one\n\t2. sub item\n3. item two\n    55. sub item\n\t    2. sub sub item 1\n        3. sub sub item 2\n1. item three'
 
         expected = '1. item one\n\t1. sub item\n2. item two\n    1. sub item\n\t    1. sub sub item 1\n        2. sub sub item 2\n3. item three'
+        actual = list_utils.fix_ordered_list_numbering(text)
+
+        self.assertEqual(actual, expected)
+
+    def test_fixOrderedListNumbering_itemContainsMultipleParagraphs(self):
+
+        text = """1. Item 1
+
+    It has multiple paragraphs.
+
+3. Item 2"""
+
+        expected = """1. Item 1
+
+    It has multiple paragraphs.
+
+2. Item 2"""
         actual = list_utils.fix_ordered_list_numbering(text)
 
         self.assertEqual(actual, expected)
