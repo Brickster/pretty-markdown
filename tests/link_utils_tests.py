@@ -2,6 +2,7 @@ from utils import link_utils
 
 import unittest
 
+
 class LinkUtilsTests(unittest.TestCase):
 
     #
@@ -139,14 +140,207 @@ For instance, I can link to [Google][] and [Bing][].
         self.assertEqual(actual, expected)
 
     #
+    # _create_link_definitions
+    #
+
+    def test__createLinkDefinitions(self):
+
+        link_ids = ['link', 'notfound']
+        definition_pairs = [['link', 'http://link.com']]
+
+        expected = ['[link]: http://link.com', '[notfound]: 404']
+        actual = link_utils._create_link_definitions(link_ids, definition_pairs)
+
+        self.assertEqual(actual, expected)
+
+    def test__createLinkDefinitions_noMissingDefinitions(self):
+
+        link_ids = ['link']
+        definition_pairs = [['link', 'http://link.com']]
+
+        expected = ['[link]: http://link.com']
+        actual = link_utils._create_link_definitions(link_ids, definition_pairs)
+
+        self.assertEqual(actual, expected)
+
+    def test__createLinkDefinitions_noLinks_empty(self):
+
+        link_ids = []
+        definition_pairs = [['link', 'http://link.com']]
+
+        expected = ['[link]: http://link.com']
+        actual = link_utils._create_link_definitions(link_ids, definition_pairs)
+
+        self.assertEqual(actual, expected)
+
+    def test__createLinkDefinitions_noLinks_none(self):
+
+        link_ids = None
+        definition_pairs = [['link', 'http://link.com']]
+
+        expected = ['[link]: http://link.com']
+        actual = link_utils._create_link_definitions(link_ids, definition_pairs)
+
+        self.assertEqual(actual, expected)
+
+    def test__createLinkDefinitions_noDefinitions_empty(self):
+
+        link_ids = ['link']
+        definition_pairs = []
+
+        expected = ['[link]: 404']
+        actual = link_utils._create_link_definitions(link_ids, definition_pairs)
+
+        self.assertEqual(actual, expected)
+
+    def test__createLinkDefinitions_noDefinitions_none(self):
+
+        link_ids = ['link']
+        definition_pairs = None
+
+        expected = ['[link]: 404']
+        actual = link_utils._create_link_definitions(link_ids, definition_pairs)
+
+        self.assertEqual(actual, expected)
+
+    def test__createLinkDefinitions_withDefaultDefinition(self):
+
+        link_ids = ['link', 'notfound']
+        definition_pairs = [['link', 'http://link.com']]
+        default_definition = 'this was not found'
+
+        expected = ['[link]: http://link.com', '[notfound]: this was not found']
+        actual = link_utils._create_link_definitions(link_ids, definition_pairs, default_definition)
+
+        self.assertEqual(actual, expected)
+
+    def test__createLinkDefinitions_withDefaultDefinition_none(self):
+
+        link_ids = ['link', 'notfound']
+        definition_pairs = [['link', 'http://link.com']]
+        default_definition = None
+
+        expected = ['[link]: http://link.com', '[notfound]: None']
+        actual = link_utils._create_link_definitions(link_ids, definition_pairs, default_definition)
+
+        self.assertEqual(actual, expected)
+
+    def test__createLinkDefinitions_empty(self):
+
+        link_ids = []
+        definition_pairs = []
+
+        expected = []
+        actual = link_utils._create_link_definitions(link_ids, definition_pairs)
+
+        self.assertEqual(actual, expected)
+
+    def test__createLinkDefinitions_none(self):
+
+        link_ids = None
+        definition_pairs = None
+
+        expected = []
+        actual = link_utils._create_link_definitions(link_ids, definition_pairs)
+
+        self.assertEqual(actual, expected)
+
+    #
     # discover_missing_links
     #
 
-    def test_discoverMissingLinks_doesNothing(self):
+    def test_discoverMissingLinks(self):
 
         text = 'This has a missing [link][] definition.'
 
-        expected = text
+        expected = 'This has a missing [link][] definition.\n\n[link]: 404'
         actual = link_utils.discover_missing_links(text)
 
-        self.assertEqual(actual, expected)       
+        self.assertEqual(actual, expected)
+
+    def test_discoverMissingLinks_withDefaultDefinition(self):
+
+        text = 'This has a missing [link][] definition.'
+        default_definition = 'this is missing'
+
+        expected = 'This has a missing [link][] definition.\n\n[link]: ' + default_definition
+        actual = link_utils.discover_missing_links(text, default_definition=default_definition)
+
+        self.assertEqual(actual, expected)
+
+    def test_discoverMissingLinks_appendsToExistingGroup_atEnd(self):
+
+        text = """This has a missing [link][] definition but there are existing [definitions][].
+
+[definitions]: http://link.com"""
+
+        expected = """This has a missing [link][] definition but there are existing [definitions][].
+
+[definitions]: http://link.com
+[link]: 404"""
+        actual = link_utils.discover_missing_links(text)
+
+        self.assertEqual(actual, expected)
+
+    def test_discoverMissingLinks_appendsToExistingGroup_inMiddle(self):
+
+        text = """This has a missing [link][] definition but there are existing [definitions][].
+
+[definitions]: http://link.com
+
+More text here."""
+
+        expected = """This has a missing [link][] definition but there are existing [definitions][].
+
+[definitions]: http://link.com
+[link]: 404
+
+More text here."""
+        actual = link_utils.discover_missing_links(text)
+
+        self.assertEqual(actual, expected)
+
+    def test_discoverMissingLinks_appendsToExistingGroup_closest(self):
+
+        text = """This has a missing [link][] definition but there are existing [definitions][].
+
+[definitions]: http://definitions.com
+
+More text links [here][].
+
+[here]: http://here.com"""
+
+        expected = """This has a missing [link][] definition but there are existing [definitions][].
+
+[definitions]: http://definitions.com
+[link]: 404
+
+More text links [here][].
+
+[here]: http://here.com"""
+        actual = link_utils.discover_missing_links(text)
+
+        self.assertEqual(actual, expected)
+
+    def test_discoverMissingLinks_appendsToExistingGroup_sameLinkMissingMultiplePlaces(self):
+
+        text = """This has a missing [link][] definition but there are existing [definitions][].
+
+[definitions]: http://link.com
+
+More the same [link][] is [here][].
+
+[here]: http://link.com"""
+
+        expected = """This has a missing [link][] definition but there are existing [definitions][].
+
+[definitions]: http://link.com
+[link]: 404
+
+More the same [link][] is [here][].
+
+[here]: http://link.com
+[link]: 404"""
+        actual = link_utils.discover_missing_links(text)
+
+        self.assertEqual(actual, expected)
