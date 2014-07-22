@@ -12,4 +12,5 @@ class DiscoverMissingLinksCommand(pretty_markdown.PrettyMarkdownCommand):
     def modify(self, text):
         """Adds empty link definitions for reference links."""
 
-        return link_utils.discover_missing_links(text)
+        default_definition = pretty_markdown.settings().get('default_missing_link_definition')
+        return link_utils.discover_missing_links(text, default_definition=default_definition)
