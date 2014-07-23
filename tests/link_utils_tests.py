@@ -282,6 +282,22 @@ For instance, I can link to [Google][] and [Bing][].
 
         self.assertEqual(actual, expected)
 
+    def test_discoverMissingLinks_appendsToExistingGroup_lastLineIsBlank(self):
+
+        text = """This has a missing [link][] definition but there are existing [definitions][].
+
+[definitions]: http://link.com
+"""
+
+        expected = """This has a missing [link][] definition but there are existing [definitions][].
+
+[definitions]: http://link.com
+[link]: 404
+"""
+        actual = link_utils.discover_missing_links(text)
+
+        self.assertEqual(actual, expected)
+
     def test_discoverMissingLinks_appendsToExistingGroup_inMiddle(self):
 
         text = """This has a missing [link][] definition but there are existing [definitions][].

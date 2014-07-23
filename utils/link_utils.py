@@ -77,12 +77,13 @@ def discover_missing_links(text, default_definition='404'):
     link_groups = []
     definition_groups = []
     output = []
+    line_count = 0
 
     for line in text:
 
         is_link_definition = is_link_reference_definition(line)
 
-        if is_link_definition and text[-1] == line:
+        if is_link_definition and len(text) - 1 == line_count:
 
             link_id, link = re.match(LINK_REFERENCE_DEFINITION_REGEX, line).groups()
             definition_groups.append((link_id, link))
@@ -114,10 +115,12 @@ def discover_missing_links(text, default_definition='404'):
 
             output.append(line)
 
-            if text[-1] == line and link_groups:
+            if len(text) - 1 == line_count and link_groups:
                 output.append('')
                 for link in link_groups:
                     output.append('[{}]: {}'.format(link, default_definition))
+
+        line_count += 1
 
     text = '\n'.join(output)
 
