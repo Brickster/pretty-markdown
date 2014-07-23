@@ -65,6 +65,18 @@ ___
 
 ## Links ##
 
+### Missing ###
+
+This paragraph has three links. One [missing][], one [referenced][], and one [with id][id].
+
+[referenced]: http://referenced
+[id]:         http://id.com
+[missing]:    404
+
+Oh yeah, there's one [here][], too.
+
+[here]: http://here.com
+
 ### Referenced ###
 
 You can use [Google][] or [Bing][] to search the internet.
