@@ -8,6 +8,8 @@ def process_groups(text, is_group_member, process_group, is_group_member_paramet
     group = []
     output = []
 
+    count = 0
+
     for line in text:
 
         is_member = is_group_member(line, **is_group_member_parameters)
@@ -19,7 +21,7 @@ def process_groups(text, is_group_member, process_group, is_group_member_paramet
             output.append(line)
             group = []
 
-        elif is_member and text.index(line) == len(text) - 1:
+        elif is_member and len(text) - 1 == count:
 
             group.append(line)
             output += process_group(group, **process_group_parameters)
@@ -28,6 +30,8 @@ def process_groups(text, is_group_member, process_group, is_group_member_paramet
             group.append(line)
         else:
             output.append(line)
+
+        count += 1
 
     text = '\n'.join(output)
 

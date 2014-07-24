@@ -140,6 +140,15 @@ class ListUtilsTests(unittest.TestCase):
 
         self.assertEqual(actual, expected)
 
+    def test_alternateUnorderedListDelimiters_lastItemIsDuplicate(self):
+
+        text = "* item\n* item"
+        delimiters = ['-', '+', '*']
+
+        expected = "- item\n- item"
+        actual = list_utils.alternate_unordered_list_delimiters(text, delimiters)
+
+        self.assertEqual(actual, expected)
 
     #
     # _is_unordered_list_item
