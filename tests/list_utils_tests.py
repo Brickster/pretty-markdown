@@ -122,6 +122,26 @@ class ListUtilsTests(unittest.TestCase):
 
         self.assertEqual(actual, expected)
 
+    def test_alternateUnorderedListDelimiters_newLineBetweenItems(self):
+
+        text = '- Item one\n\n+ Item two\n\n* Item three'
+        delimiters = ['-', '*']
+
+        expected = '- Item one\n\n- Item two\n\n- Item three'
+        actual = list_utils.alternate_unordered_list_delimiters(text, delimiters)
+
+        self.assertEqual(actual, expected)
+
+    def test_alternateUnorderedListDelimiters_newLineBetweenItems_multipleLevels(self):
+
+        text = '- Item one\n\n\t+ Sub item one\n\n* Item two'
+        delimiters = ['-', '*']
+
+        expected = '- Item one\n\n\t* Sub item one\n\n- Item two'
+        actual = list_utils.alternate_unordered_list_delimiters(text, delimiters)
+
+        self.assertEqual(actual, expected)
+
     def test_alternateUnorderedListDelimiters_itemContainsMultipleParagraphs(self):
 
         text = """- Item
@@ -208,14 +228,14 @@ class ListUtilsTests(unittest.TestCase):
         text = ''
         is_item = list_utils._is_unordered_list_item(text)
 
-        self.assertFalse(is_item)
+        self.assertTrue(is_item)
 
     def test__isUnorderedListItem_blank(self):
 
         text = '    '
         is_item = list_utils._is_unordered_list_item(text)
 
-        self.assertFalse(is_item)
+        self.assertTrue(is_item)
 
     def test__isUnorderedListItem_none(self):
 
@@ -289,14 +309,14 @@ class ListUtilsTests(unittest.TestCase):
         text = ''
         is_item = list_utils._is_ordered_list_item(text)
 
-        self.assertFalse(is_item)
+        self.assertTrue(is_item)
 
     def test__isOrderedListItem_blank(self):
 
         text = '    '
         is_item = list_utils._is_ordered_list_item(text)
 
-        self.assertFalse(is_item)
+        self.assertTrue(is_item)
 
     def test__isOrderedListItem_none(self):
 
@@ -471,6 +491,24 @@ class ListUtilsTests(unittest.TestCase):
 
         self.assertEqual(actual, expected)
 
+    def test_fixOrderedListNumbering_newLineBetweenItems(self):
+
+        text = '1. Item one\n\n1. Item two\n\n4. Item three'
+
+        expected = '1. Item one\n\n2. Item two\n\n3. Item three'
+        actual = list_utils.fix_ordered_list_numbering(text)
+
+        self.assertEqual(actual, expected)
+
+    def test_fixOrderedListNumbering_newLineBetweenItems_multipleLevels(self):
+
+        text = '1. Item one\n\n\t2. Sub item one\n\n3. Item two'
+
+        expected = '1. Item one\n\n\t1. Sub item one\n\n2. Item two'
+        actual = list_utils.fix_ordered_list_numbering(text)
+
+        self.assertEqual(actual, expected)
+
     def test_fixOrderedListNumbering_itemContainsMultipleParagraphs(self):
 
         text = """1. Item 1
@@ -484,6 +522,15 @@ class ListUtilsTests(unittest.TestCase):
     It has multiple paragraphs.
 
 2. Item 2"""
+        actual = list_utils.fix_ordered_list_numbering(text)
+
+        self.assertEqual(actual, expected)
+
+    def test_fixOrderedListNumbering_newLineAtEnd(self):
+
+        text = '1. Item one\n1. Item two\n'
+
+        expected = '1. Item one\n2. Item two\n'
         actual = list_utils.fix_ordered_list_numbering(text)
 
         self.assertEqual(actual, expected)

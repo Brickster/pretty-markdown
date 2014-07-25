@@ -105,6 +105,12 @@ You can also use [DuckDuckGo][] but I never have.
     + Item 3.1
 - Item 4
 
+- Item 5
+
+    + Item 5.1
+
+    + Item 5.2
+
 ### Ordered ###
 
 1. Item 1
@@ -117,3 +123,9 @@ You can also use [DuckDuckGo][] but I never have.
         2. Item 3.1.2
             1. Item 3.1.2.1
 4. Item 4
+
+5. Item 5
+
+    1. Item 5.1
+
+    2. Item 5.2
