@@ -2,6 +2,7 @@ import re
 
 VALID_CHARACTERS = ['*', "_"]
 
+
 def convert_bolds(text, character='*'):
     """Converts any bold implementation to use the specified character.
 

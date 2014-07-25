@@ -13,6 +13,7 @@ FILES_DIRECTORY_PATH = os.path.join(os.path.dirname(__file__), 'files')
 DIRTY_FILE_PATH = os.path.join(FILES_DIRECTORY_PATH, 'dirty.md')
 CLEAN_FILE_PATH = os.path.join(FILES_DIRECTORY_PATH, 'clean.md')
 
+
 class FileTests(unittest.TestCase):
 
     """Tests utils against an actual Markdown file."""

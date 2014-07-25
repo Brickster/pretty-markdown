@@ -2,6 +2,7 @@ from utils import bold_utils
 
 import unittest
 
+
 class BoldUtilsTests(unittest.TestCase):
 
     def test_convertBolds_empty(self):

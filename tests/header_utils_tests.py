@@ -2,6 +2,7 @@ from utils import header_utils
 
 import unittest
 
+
 class HeaderUtilsTests(unittest.TestCase):
 
     #
@@ -97,7 +98,6 @@ class HeaderUtilsTests(unittest.TestCase):
         actual = header_utils.fix_header_balancing(text)
 
         self.assertEqual(actual, expected)
-
 
     def test_fixHeaderBalancing_setext_alreadyBalanced(self):
 

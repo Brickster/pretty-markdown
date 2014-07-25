@@ -1,6 +1,7 @@
 import sublime
 import sublime_plugin
 
+
 def command_names():
     """Returns a list of all command names."""
 
@@ -18,10 +19,12 @@ def command_names():
         "format_link_reference_definitions"
     ]
 
+
 def settings():
     """Retrieves the settings file."""
 
     return sublime.load_settings("Pretty Markdown.sublime-settings")
+
 
 class PrettyMarkdownCommand(sublime_plugin.TextCommand):
 

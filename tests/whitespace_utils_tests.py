@@ -2,6 +2,7 @@ from utils import whitespace_utils
 
 import unittest
 
+
 class WhitespaceUtilsTests(unittest.TestCase):
 
     def test_trimNonBreakingWhitespace_empty(self):

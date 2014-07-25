@@ -2,6 +2,7 @@ from utils import italic_utils
 
 import pretty_markdown
 
+
 class ConvertItalicsCommand(pretty_markdown.PrettyMarkdownCommand):
     def modify(self, text):
         """Converts any italics implementation into the one defined in the settings."""

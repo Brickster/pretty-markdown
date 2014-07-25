@@ -2,6 +2,7 @@ from utils import bold_utils
 
 import pretty_markdown
 
+
 class ConvertBoldCommand(pretty_markdown.PrettyMarkdownCommand):
     def modify(self, text):
         """Converts any bold implementation into the one defined in the settings."""

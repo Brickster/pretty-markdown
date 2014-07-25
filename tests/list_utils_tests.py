@@ -2,6 +2,7 @@ from utils import list_utils
 
 import unittest
 
+
 class ListUtilsTests(unittest.TestCase):
 
     #

@@ -1,6 +1,7 @@
 import pretty_markdown
 import sublime_plugin
 
+
 class FormatMarkdownCommand(sublime_plugin.TextCommand):
     def run(self, edit):
         """Runs all formatting functions."""

@@ -2,6 +2,7 @@ from utils import horizontal_rule_utils
 
 import unittest
 
+
 class HorizontalRuleUtilsTests(unittest.TestCase):
 
     #
@@ -203,4 +204,4 @@ class HorizontalRuleUtilsTests(unittest.TestCase):
 
     def test_isValidHorizontalRule_backSlashes(self):
 
-        self.assertFalse(horizontal_rule_utils.is_valid_horizontal_rule(r'\\\\')) # a raw string cannot end in a backslash so "escape" the last one
+        self.assertFalse(horizontal_rule_utils.is_valid_horizontal_rule(r'\\\\'))  # a raw string cannot end in a backslash so "escape" the last one

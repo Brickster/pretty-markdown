@@ -4,10 +4,12 @@ import util_utils
 UNORDERED_LIST_ITEM_PATTERN = re.compile(r'^((?:\s{4}|\t)*)[-*+](\s+.*$)')
 ORDERED_LIST_ITEM_PATTERN = re.compile(r'^((?:\s{4}|\t)*)\d+(\.\s+.*$)')
 
+
 def _is_unordered_list_item(text):
     """Determines if a string is an unordered list item."""
 
     return text is not None and (UNORDERED_LIST_ITEM_PATTERN.match(text) is not None or len(text.strip()) == 0)
+
 
 def _tab_count(text):
     """Determines tab count."""
@@ -20,7 +22,8 @@ def _tab_count(text):
 
     return count
 
-def _format_unordered_list(list, delimiters = ['-', '+', '*']):
+
+def _format_unordered_list(list, delimiters=['-', '+', '*']):
     """Alternates the delimiters in unordered lists according to their indentation."""
 
     output = []
@@ -39,7 +42,8 @@ def _format_unordered_list(list, delimiters = ['-', '+', '*']):
 
     return output
 
-def alternate_unordered_list_delimiters(text, delimiters = ['-', '+', '*']):
+
+def alternate_unordered_list_delimiters(text, delimiters=['-', '+', '*']):
     """Alternates the delimiters in unordered lists according to their indentation."""
 
     process_parameters = {'delimiters': delimiters}
@@ -48,10 +52,12 @@ def alternate_unordered_list_delimiters(text, delimiters = ['-', '+', '*']):
                                      process_group=_format_unordered_list,
                                      process_group_parameters=process_parameters)
 
+
 def _is_ordered_list_item(text):
     """Determines if a string is an ordered list item."""
 
     return text is not None and (ORDERED_LIST_ITEM_PATTERN.match(text) is not None or len(text.strip()) == 0)
+
 
 def _format_ordered_list(list):
     """Fixes the number for ordered lists."""
@@ -74,13 +80,14 @@ def _format_ordered_list(list):
 
             count = counts[tab_count]
 
-            new_item = ORDERED_LIST_ITEM_PATTERN.sub(r'\g<1>{}\g<2>'.format(count), item) # explicit group definition to not be confused with digit
+            new_item = ORDERED_LIST_ITEM_PATTERN.sub(r'\g<1>{}\g<2>'.format(count), item)  # explicit group definition to not be confused with digit
             output.append(new_item)
-        
+
             count += 1
             counts[tab_count] = count
 
     return output
+
 
 def fix_ordered_list_numbering(text):
     """Fixes the number for ordered lists."""

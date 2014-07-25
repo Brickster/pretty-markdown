@@ -2,6 +2,7 @@ from utils import italic_utils
 
 import unittest
 
+
 class ItalicUtilsTests(unittest.TestCase):
 
     def test_convertItalics_empty(self):

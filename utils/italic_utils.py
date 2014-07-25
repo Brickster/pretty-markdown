@@ -2,6 +2,7 @@ import re
 
 VALID_CHARACTERS = ['*', "_"]
 
+
 def convert_italics(text, character='_'):
     """Converts any italics implementation to use the specified character.
 

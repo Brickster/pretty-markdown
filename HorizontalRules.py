@@ -2,6 +2,7 @@ from utils import horizontal_rule_utils
 
 import pretty_markdown
 
+
 class ConvertHorizontalRulesCommand(pretty_markdown.PrettyMarkdownCommand):
     def modify(self, text):
         """Converts any horizontal rule variation to the version defined in the settings file.

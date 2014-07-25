@@ -1,4 +1,4 @@
-def process_groups(text, is_group_member, process_group, is_group_member_parameters = {}, process_group_parameters = {}):
+def process_groups(text, is_group_member, process_group, is_group_member_parameters={}, process_group_parameters={}):
     """Processes groups with a block of text.
 
     Determining whether a line in the input text is a group member and processing said groups is delegated to the supplied functions.
