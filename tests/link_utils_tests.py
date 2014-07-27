@@ -1,3 +1,4 @@
+from unittest.mock import patch
 from utils import link_utils
 
 import unittest
@@ -350,5 +351,25 @@ More the same [link][] is [here][].
 [here]: http://link.com
 [link]: 404"""
         actual = link_utils.discover_missing_links(text)
+
+        self.assertEqual(actual, expected)
+
+    #
+    # format_link_reference_definitions
+    #
+
+    @patch('util_utils.process_groups')
+    def test_formatLinkReferenceDefinitions(self, mock_process_groups):
+
+        input_text = 'this is the input'
+        expected = 'this is the different'
+
+        mock_process_groups.return_value = expected
+
+        actual = link_utils.format_link_reference_definitions(input_text)
+
+        mock_process_groups.assert_called_with(input_text,
+                                               is_group_member=link_utils.is_link_reference_definition,
+                                               process_group=link_utils._format_links)
 
         self.assertEqual(actual, expected)
