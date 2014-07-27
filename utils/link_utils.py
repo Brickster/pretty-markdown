@@ -4,10 +4,6 @@ import util_utils
 LINK_REFERENCE_DEFINITION_REGEX = r'^\[(.*?)\]:\s+(.+?(?:\s+".*")?)$'
 LINK_REFERENCE_REGEX = r'\[(.+?)\]\[(.*?)\]'
 
-# TODO remove these and just use re.match, re.finditer, etc since they are cache internally anyway
-LINK_REFERENCE_DEFINITION_PATTERN = re.compile(LINK_REFERENCE_DEFINITION_REGEX, flags=re.MULTILINE)
-LINK_REFERENCE_PATTERN = re.compile(LINK_REFERENCE_REGEX)
-
 
 def is_link_reference_definition(text):
     """Determines whether a given string is a link reference definition."""
@@ -18,7 +14,7 @@ def is_link_reference_definition(text):
 def _format_links(links):
     """Formats a list of links."""
 
-    pairs = [LINK_REFERENCE_DEFINITION_PATTERN.match(cur).groups() for cur in links]
+    pairs = [re.match(LINK_REFERENCE_DEFINITION_REGEX, cur).groups() for cur in links]
     longest = len(max([pair[0] for pair in pairs], key=len)) + 4  # 4 accounts for [, ], :, and ' '
     formatted_links = ['[{}]: '.format(definition).ljust(longest) + link for definition, link in pairs]
 
@@ -37,8 +33,8 @@ def _append_missing_links(link_definitions, text, default_definition='404'):
     link_definitions_string = '\n'.join(link_definitions)
     link_definitions_start = text.index(link_definitions_string)
 
-    definitions = {m.group(1): m.group(2) for m in LINK_REFERENCE_DEFINITION_PATTERN.finditer(link_definitions_string)}
-    links = {m.group(1): m.group(2) for m in LINK_REFERENCE_PATTERN.finditer(text) if m.start() < link_definitions_start}
+    definitions = {m.group(1): m.group(2) for m in re.finditer(LINK_REFERENCE_DEFINITION_REGEX, link_definitions_string, flags=re.MULTILINE)}
+    links = {m.group(1): m.group(2) for m in re.finditer(LINK_REFERENCE_PATTERN, text) if m.start() < link_definitions_start}
 
     missing_links = [key for key in links if key not in definitions]
 
