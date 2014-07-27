@@ -5,12 +5,6 @@ UNORDERED_LIST_ITEM_PATTERN = re.compile(r'^((?:\s{4}|\t)*)[-*+](\s+.*$)')
 ORDERED_LIST_ITEM_PATTERN = re.compile(r'^((?:\s{4}|\t)*)\d+(\.\s+.*$)')
 
 
-def _is_unordered_list_item(text):
-    """Determines if a string is an unordered list item."""
-
-    return text is not None and (UNORDERED_LIST_ITEM_PATTERN.match(text) is not None or len(text.strip()) == 0)
-
-
 def _tab_count(text):
     """Determines tab count."""
 
@@ -21,6 +15,18 @@ def _tab_count(text):
         count += int(text.count(' ') / 4)
 
     return count
+
+
+def _is_unordered_list_item(text):
+    """Determines if a string is an unordered list item."""
+
+    return text is not None and (UNORDERED_LIST_ITEM_PATTERN.match(text) is not None or len(text.strip()) == 0)
+
+
+def _is_ordered_list_item(text):
+    """Determines if a string is an ordered list item."""
+
+    return text is not None and (ORDERED_LIST_ITEM_PATTERN.match(text) is not None or len(text.strip()) == 0)
 
 
 def _format_unordered_list(list, delimiters=['-', '+', '*']):
@@ -41,22 +47,6 @@ def _format_unordered_list(list, delimiters=['-', '+', '*']):
             output.append(new_item)
 
     return output
-
-
-def alternate_unordered_list_delimiters(text, delimiters=['-', '+', '*']):
-    """Alternates the delimiters in unordered lists according to their indentation."""
-
-    process_parameters = {'delimiters': delimiters}
-    return util_utils.process_groups(text,
-                                     is_group_member=_is_unordered_list_item,
-                                     process_group=_format_unordered_list,
-                                     process_group_parameters=process_parameters)
-
-
-def _is_ordered_list_item(text):
-    """Determines if a string is an ordered list item."""
-
-    return text is not None and (ORDERED_LIST_ITEM_PATTERN.match(text) is not None or len(text.strip()) == 0)
 
 
 def _format_ordered_list(list):
@@ -87,6 +77,16 @@ def _format_ordered_list(list):
             counts[tab_count] = count
 
     return output
+
+
+def alternate_unordered_list_delimiters(text, delimiters=['-', '+', '*']):
+    """Alternates the delimiters in unordered lists according to their indentation."""
+
+    process_parameters = {'delimiters': delimiters}
+    return util_utils.process_groups(text,
+                                     is_group_member=_is_unordered_list_item,
+                                     process_group=_format_unordered_list,
+                                     process_group_parameters=process_parameters)
 
 
 def fix_ordered_list_numbering(text):

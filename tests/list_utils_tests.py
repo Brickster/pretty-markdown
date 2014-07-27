@@ -8,152 +8,78 @@ import unittest
 class ListUtilsTests(unittest.TestCase):
 
     #
-    # alternate_unordered_list_delimiters
+    # _tab_count
     #
 
-    def test_alternateUnorderedListDelimiters_nonMock(self):
+    def test__tabCount_none(self):
 
-        text = """- item 1
-    * sub item
-        - sub sub item
-* item 2"""
+        text = None
+        tab_count = list_utils._tab_count(text)
 
-        expected = """- item 1
-    + sub item
-        * sub sub item
-- item 2"""
-        actual = list_utils.alternate_unordered_list_delimiters(text)
+        self.assertEqual(tab_count, 0)
 
-        self.assertEqual(actual, expected)
+    def test__tabCount_empty(self):
 
-    def test_alternateUnorderedListDelimiters_withDelimiters(self):
+        text = ''
+        tab_count = list_utils._tab_count(text)
 
-        text = """- item 1
-    * sub item
-        - sub sub item
-* item 2"""
-        delimiters = ['+', '*', '-']
+        self.assertEqual(tab_count, 0)
 
-        expected = """+ item 1
-    * sub item
-        - sub sub item
-+ item 2"""
-        actual = list_utils.alternate_unordered_list_delimiters(text, delimiters)
+    def test__tabCount_blank(self):
 
-        self.assertEqual(actual, expected)
+        text = '  '
+        tab_count = list_utils._tab_count(text)
 
-    def test_alternateUnorderedListDelimiters_spaces(self):
+        self.assertEqual(tab_count, 0)
 
-        text = '- item\n    - subitem\n        - subsubitem'
-        delimiters = ['-', '+', '*']
+    def test__tabCount_zero(self):
 
-        expected = '- item\n    + subitem\n        * subsubitem'
-        actual = list_utils.alternate_unordered_list_delimiters(text, delimiters)
+        text = 'No tabs'
+        tab_count = list_utils._tab_count(text)
 
-        self.assertEqual(actual, expected)
+        self.assertEqual(tab_count, 0)
 
-    def test_alternateUnorderedListDelimiters_tabs(self):
+    def test__tabCount_one(self):
 
-        text = '- item\n\t- subitem\n\t\t- subsubitem'
-        delimiters = ['-', '+', '*']
+        text = '\tOne tab'
+        tab_count = list_utils._tab_count(text)
 
-        expected = '- item\n\t+ subitem\n\t\t* subsubitem'
-        actual = list_utils.alternate_unordered_list_delimiters(text, delimiters)
+        self.assertEqual(tab_count, 1)
 
-        self.assertEqual(actual, expected)
+    def test__tabCount_two(self):
 
-    def test_alternateUnorderedListDelimiters_tabsAndSpaces(self):
+        text = '\t\tTwo tab'
+        tab_count = list_utils._tab_count(text)
 
-        text = '- item\n\t- subitem\n\t    - subsubitem\n    \t- subsubitem\n    \t    - subsubsubitem'
-        delimiters = ['-', '+', '*']
+        self.assertEqual(tab_count, 2)
 
-        expected = '- item\n\t+ subitem\n\t    * subsubitem\n    \t* subsubitem\n    \t    - subsubsubitem'
-        actual = list_utils.alternate_unordered_list_delimiters(text, delimiters)
+    def test__tabCount_many(self):
 
-        self.assertEqual(actual, expected)
+        text = '\t\t\t\t\t\tMany tabs'
+        tab_count = list_utils._tab_count(text)
 
-    def test_alternateUnorderedListDelimiters_rollOver(self):
+        self.assertEqual(tab_count, 6)
 
-        text = '+ item\n\t+ subitem\n\t\t+ subsubitem\n\t\t\t+ subsubsubitem'
-        delimiters = ['-', '+', '*']
+    def test__tabCount_spaces_one(self):
 
-        expected = '- item\n\t+ subitem\n\t\t* subsubitem\n\t\t\t- subsubsubitem'
-        actual = list_utils.alternate_unordered_list_delimiters(text, delimiters)
+        text = '    One tab'
+        tab_count = list_utils._tab_count(text)
 
-        self.assertEqual(actual, expected)
+        self.assertEqual(tab_count, 1)
 
-    def test_alternateUnorderedListDelimiters_convertToSingleDelimiter(self):
+    def test__tabCount_spaces_many(self):
 
-        text = "* item one\n* item two\n* item three"
-        delimiters = ['-']
+        text = '    ' * 6 + 'Many tab'
+        tab_count = list_utils._tab_count(text)
 
-        expected = "- item one\n- item two\n- item three"
-        actual = list_utils.alternate_unordered_list_delimiters(text, delimiters)
+        self.assertEqual(tab_count, 6)
 
-        self.assertEqual(actual, expected)
+    def test__tabCount_mixed(self):
 
-    def test_alternateUnorderedListDelimiters_convertToSingleDelimiter_withSubItems(self):
+        text = '\t    \t\t        Mixed tab types'
+        tab_count = list_utils._tab_count(text)
 
-        text = """- item
-    * sub item
-        + sub sub item"""
-        delimiters = ['-']
-
-        expected = """- item
-    - sub item
-        - sub sub item"""
-        actual = list_utils.alternate_unordered_list_delimiters(text, delimiters)
-
-        self.assertEqual(actual, expected)
-
-    def test_alternateUnorderedListDelimiters_allSameLevel_oneOfEach(self):
-
-        text = "- item one\n+ item two\n* item three"
-        delimiters = ['-', '+', '*']
-
-        expected = "- item one\n- item two\n- item three"
-        actual = list_utils.alternate_unordered_list_delimiters(text, delimiters)
-
-        self.assertEqual(actual, expected)
-
-    def test_alternateUnorderedListDelimiters_doesNothing(self):
-
-        text = 'item one'
-
-        expected = text
-        actual = list_utils.alternate_unordered_list_delimiters(text)
-
-        self.assertEqual(actual, expected)
-
-    def test_alternateUnorderedListDelimiters_newLineBetweenItems(self):
-
-        text = '- Item one\n\n+ Item two\n\n* Item three'
-        delimiters = ['-', '*']
-
-        expected = '- Item one\n\n- Item two\n\n- Item three'
-        actual = list_utils.alternate_unordered_list_delimiters(text, delimiters)
-
-        self.assertEqual(actual, expected)
-
-    def test_alternateUnorderedListDelimiters_newLineBetweenItems_multipleLevels(self):
-
-        text = '- Item one\n\n\t+ Sub item one\n\n* Item two'
-        delimiters = ['-', '*']
-
-        expected = '- Item one\n\n\t* Sub item one\n\n- Item two'
-        actual = list_utils.alternate_unordered_list_delimiters(text, delimiters)
-
-        self.assertEqual(actual, expected)
-
-    def test_alternateUnorderedListDelimiters_lastItemIsDuplicate(self):
-
-        text = "* item\n* item"
-        delimiters = ['-', '+', '*']
-
-        expected = "- item\n- item"
-        actual = list_utils.alternate_unordered_list_delimiters(text, delimiters)
-
-        self.assertEqual(actual, expected)
+        self.assertEqual(tab_count, 6)
 
     #
     # _is_unordered_list_item
@@ -317,209 +243,236 @@ class ListUtilsTests(unittest.TestCase):
 
         self.assertFalse(is_item)
 
-    #
-    # _tab_count
-    #
-
-    def test__tabCount_none(self):
-
-        text = None
-        tab_count = list_utils._tab_count(text)
-
-        self.assertEqual(tab_count, 0)
-
-    def test__tabCount_empty(self):
-
-        text = ''
-        tab_count = list_utils._tab_count(text)
-
-        self.assertEqual(tab_count, 0)
-
-    def test__tabCount_blank(self):
-
-        text = '  '
-        tab_count = list_utils._tab_count(text)
-
-        self.assertEqual(tab_count, 0)
-
-    def test__tabCount_zero(self):
-
-        text = 'No tabs'
-        tab_count = list_utils._tab_count(text)
-
-        self.assertEqual(tab_count, 0)
-
-    def test__tabCount_one(self):
-
-        text = '\tOne tab'
-        tab_count = list_utils._tab_count(text)
-
-        self.assertEqual(tab_count, 1)
-
-    def test__tabCount_two(self):
-
-        text = '\t\tTwo tab'
-        tab_count = list_utils._tab_count(text)
-
-        self.assertEqual(tab_count, 2)
-
-    def test__tabCount_many(self):
-
-        text = '\t\t\t\t\t\tMany tabs'
-        tab_count = list_utils._tab_count(text)
-
-        self.assertEqual(tab_count, 6)
-
-    def test__tabCount_spaces_one(self):
-
-        text = '    One tab'
-        tab_count = list_utils._tab_count(text)
-
-        self.assertEqual(tab_count, 1)
-
-    def test__tabCount_spaces_many(self):
-
-        text = '    ' * 6 + 'Many tab'
-        tab_count = list_utils._tab_count(text)
-
-        self.assertEqual(tab_count, 6)
-
-    def test__tabCount_mixed(self):
-
-        text = '\t    \t\t        Mixed tab types'
-        tab_count = list_utils._tab_count(text)
-
-        self.assertEqual(tab_count, 6)
-
-    #
-    # fix_ordered_list_numbering
-    #
-
-    def test_fixOrderedListNumbering_nonMock(self):
-
-        text = '2. item one'
-
-        expected = '1. item one'
-        actual = list_utils.fix_ordered_list_numbering(text)
-
-        self.assertEqual(actual, expected)
-
-    def test_fixOrderedListNumbering_escaped(self):
+    def test__isOrderedListItem_escaped(self):
 
         text = '\1986. It was a great year.'
+        is_item = list_utils._is_ordered_list_item(text)
 
-        expected = '\1986. It was a great year.'
-        actual = list_utils.fix_ordered_list_numbering(text)
+        self.assertFalse(is_item)
 
-        self.assertEqual(actual, expected)
-
-    def test_fixOrderedListNumbering_notAnOrderedList(self):
+    def test__isOrderedListItem_notAnOrderedList(self):
 
         text = '+ item one'
+        is_item = list_utils._is_ordered_list_item(text)
 
-        expected = text
-        actual = list_utils.fix_ordered_list_numbering(text)
+        self.assertFalse(is_item)
 
-        self.assertEqual(actual, expected)
+    #
+    # _format_unordered_list
+    #
 
-    def test_fixOrderedListNumbering_noChange(self):
+    def test__formatUnorderedList(self):
 
-        text = '1. item one'
+        text = ['- item 1', '    * sub item', '        - sub sub item', '* item 2']
+        expected = ['- item 1', '    + sub item', '        * sub sub item', '- item 2']
 
-        expected = text
-        actual = list_utils.fix_ordered_list_numbering(text)
-
-        self.assertEqual(actual, expected)
-
-    def test_fixOrderedListNumbering_oneLevel(self):
-
-        text = '2. item one\n3. item two\n1. item three'
-
-        expected = '1. item one\n2. item two\n3. item three'
-        actual = list_utils.fix_ordered_list_numbering(text)
+        actual = list_utils._format_unordered_list(text)
 
         self.assertEqual(actual, expected)
 
-    def test_fixOrderedListNumbering_twoLevels(self):
+    def test__formatUnorderedList_withDelimiters(self):
 
-        text = '2. item one\n\t2. sub item\n3. item two\n1. item three'
+        text = ['- item 1', '    * sub item', '        - sub sub item', '* item 2']
+        delimiters = ['+', '*', '-']
 
-        expected = '1. item one\n\t1. sub item\n2. item two\n3. item three'
-        actual = list_utils.fix_ordered_list_numbering(text)
+        expected = ['+ item 1', '    * sub item', '        - sub sub item', '+ item 2']
 
-        self.assertEqual(actual, expected)
-
-    def test_fixOrderedListNumbering_twoLevels_spaces(self):
-
-        text = '2. item one\n    2. sub item\n3. item two\n1. item three'
-
-        expected = '1. item one\n    1. sub item\n2. item two\n3. item three'
-        actual = list_utils.fix_ordered_list_numbering(text)
+        actual = list_utils._format_unordered_list(text, delimiters)
 
         self.assertEqual(actual, expected)
 
-    def test_fixOrderedListNumbering_manyLevels(self):
+    def test__formatUnorderedList_spaces(self):
 
-        text = '2. item one\n\t2. sub item\n3. item two\n\t55. sub item\n\t\t2. sub sub item 1\n\t\t3. sub sub item 2\n1. item three'
+        text = ['- item', '    - subitem', '        - subsubitem']
+        delimiters = ['-', '+', '*']
 
-        expected = '1. item one\n\t1. sub item\n2. item two\n\t1. sub item\n\t\t1. sub sub item 1\n\t\t2. sub sub item 2\n3. item three'
-        actual = list_utils.fix_ordered_list_numbering(text)
-
-        self.assertEqual(actual, expected)
-
-    def test_fixOrderedListNumbering_manyLevels_tabsAndSpaces(self):
-
-        text = '2. item one\n\t2. sub item\n3. item two\n    55. sub item\n\t    2. sub sub item 1\n        3. sub sub item 2\n1. item three'
-
-        expected = '1. item one\n\t1. sub item\n2. item two\n    1. sub item\n\t    1. sub sub item 1\n        2. sub sub item 2\n3. item three'
-        actual = list_utils.fix_ordered_list_numbering(text)
+        expected = ['- item', '    + subitem', '        * subsubitem']
+        actual = list_utils._format_unordered_list(text, delimiters)
 
         self.assertEqual(actual, expected)
 
-    def test_fixOrderedListNumbering_newLineBetweenItems(self):
+    def test__formatUnorderedList_tabs(self):
 
-        text = '1. Item one\n\n1. Item two\n\n4. Item three'
+        text = ['- item', '\t- subitem', '\t\t- subsubitem']
+        delimiters = ['-', '+', '*']
 
-        expected = '1. Item one\n\n2. Item two\n\n3. Item three'
-        actual = list_utils.fix_ordered_list_numbering(text)
-
-        self.assertEqual(actual, expected)
-
-    def test_fixOrderedListNumbering_newLineBetweenItems_multipleLevels(self):
-
-        text = '1. Item one\n\n\t2. Sub item one\n\n3. Item two'
-
-        expected = '1. Item one\n\n\t1. Sub item one\n\n2. Item two'
-        actual = list_utils.fix_ordered_list_numbering(text)
+        expected = ['- item', '\t+ subitem', '\t\t* subsubitem']
+        actual = list_utils._format_unordered_list(text, delimiters)
 
         self.assertEqual(actual, expected)
 
-    def test_fixOrderedListNumbering_newLineAtEnd(self):
+    def test__formatUnorderedList_tabsAndSpaces(self):
 
-        text = '1. Item one\n1. Item two\n'
+        text = ['- item', '\t- subitem', '\t    - subsubitem', '    \t- subsubitem', '    \t    - subsubsubitem']
+        delimiters = ['-', '+', '*']
 
-        expected = '1. Item one\n2. Item two\n'
-        actual = list_utils.fix_ordered_list_numbering(text)
+        expected = ['- item', '\t+ subitem', '\t    * subsubitem', '    \t* subsubitem', '    \t    - subsubsubitem']
+        actual = list_utils._format_unordered_list(text, delimiters)
+
+        self.assertEqual(actual, expected)
+
+    def test__formatUnorderedList_rollOver(self):
+
+        text = ['+ item', '\t+ subitem', '\t\t+ subsubitem', '\t\t\t+ subsubsubitem']
+        delimiters = ['-', '+', '*']
+
+        expected = ['- item', '\t+ subitem', '\t\t* subsubitem', '\t\t\t- subsubsubitem']
+        actual = list_utils._format_unordered_list(text, delimiters)
+
+        self.assertEqual(actual, expected)
+
+    def test__formatUnorderedList_convertToSingleDelimiter(self):
+
+        text = ['* item one', '* item two', '* item three']
+        delimiters = ['-']
+
+        expected = ['- item one', '- item two', '- item three']
+        actual = list_utils._format_unordered_list(text, delimiters)
+
+        self.assertEqual(actual, expected)
+
+    def test__formatUnorderedList_convertToSingleDelimiter_withSubItems(self):
+
+        text = ['- item', '    * sub item', '        + sub sub item']
+        delimiters = ['-']
+
+        expected = ['- item', '    - sub item', '        - sub sub item']
+        actual = list_utils._format_unordered_list(text, delimiters)
+
+        self.assertEqual(actual, expected)
+
+    def test__formatUnorderedList_allSameLevel_oneOfEach(self):
+
+        text = ['- item one', '+ item two', '* item three']
+        delimiters = ['-', '+', '*']
+
+        expected = ['- item one', '- item two', '- item three']
+        actual = list_utils._format_unordered_list(text, delimiters)
+
+        self.assertEqual(actual, expected)
+
+    def test__formatUnorderedList_newLineBetweenItems(self):
+
+        text = ['- Item one', '', '+ Item two', '', '* Item three']
+        delimiters = ['-', '*']
+
+        expected = ['- Item one', '', '- Item two', '', '- Item three']
+
+        actual = list_utils._format_unordered_list(text, delimiters)
+
+        self.assertEqual(actual, expected)
+
+    def test__formatUnorderedList_newLineBetweenItems_multipleLevels(self):
+
+        text = ['- Item one', '', '\t+ Sub item one', '', '* Item two']
+        delimiters = ['-', '*']
+
+        expected = ['- Item one', '', '\t* Sub item one', '', '- Item two']
+        actual = list_utils._format_unordered_list(text, delimiters)
+
+        self.assertEqual(actual, expected)
+
+    def test__formatUnorderedList_lastItemIsDuplicate(self):
+
+        text = ['* item', '* item']
+        delimiters = ['-', '+', '*']
+
+        expected = ['- item', '- item']
+        actual = list_utils._format_unordered_list(text, delimiters)
 
         self.assertEqual(actual, expected)
 
     #
-    # fix_ordered_list_numbering
+    # _format_ordered_list
     #
 
-    @patch('util_utils.process_groups')
-    def test_fixOrderedListNumbering(self, mock_process_groups):
+    def test__formatOrderedList(self):
 
-        input_text = 'this is the input'
-        expected = 'this is the different'
+        text = ['2. item one']
 
-        mock_process_groups.return_value = expected
+        expected = ['1. item one']
+        actual = list_utils._format_ordered_list(text)
 
-        actual = list_utils.fix_ordered_list_numbering(input_text)
+        self.assertEqual(actual, expected)
 
-        mock_process_groups.assert_called_with(input_text,
-                                               is_group_member=list_utils._is_ordered_list_item,
-                                               process_group=list_utils._format_ordered_list)
+    def test__formatOrderedList_noChange(self):
+
+        text = ['1. item one']
+
+        expected = text
+        actual = list_utils._format_ordered_list(text)
+
+        self.assertEqual(actual, expected)
+
+    def test__formatOrderedList_oneLevel(self):
+
+        text = ['2. item one', '3. item two', '1. item three']
+
+        expected = ['1. item one', '2. item two', '3. item three']
+        actual = list_utils._format_ordered_list(text)
+
+        self.assertEqual(actual, expected)
+
+    def test__formatOrderedList_twoLevels(self):
+
+        text = ['2. item one', '\t2. sub item', '3. item two', '1. item three']
+
+        expected = ['1. item one', '\t1. sub item', '2. item two', '3. item three']
+        actual = list_utils._format_ordered_list(text)
+
+        self.assertEqual(actual, expected)
+
+    def test__formatOrderedList_twoLevels_spaces(self):
+
+        text = ['2. item one', '    2. sub item', '3. item two', '1. item three']
+
+        expected = ['1. item one', '    1. sub item', '2. item two', '3. item three']
+        actual = list_utils._format_ordered_list(text)
+
+        self.assertEqual(actual, expected)
+
+    def test__formatOrderedList_manyLevels(self):
+
+        text = ['2. item one', '\t2. sub item', '3. item two', '\t55. sub item', '\t\t2. sub sub item 1', '\t\t3. sub sub item 2', '1. item three']
+
+        expected = ['1. item one', '\t1. sub item', '2. item two', '\t1. sub item', '\t\t1. sub sub item 1', '\t\t2. sub sub item 2', '3. item three']
+        actual = list_utils._format_ordered_list(text)
+
+        self.assertEqual(actual, expected)
+
+    def test__formatOrderedList_manyLevels_tabsAndSpaces(self):
+
+        text = ['2. item one', '\t2. sub item', '3. item two', '    55. sub item', '\t    2. sub sub item 1', '        3. sub sub item 2', '1. item three']
+
+        expected = ['1. item one', '\t1. sub item', '2. item two', '    1. sub item', '\t    1. sub sub item 1', '        2. sub sub item 2', '3. item three']
+        actual = list_utils._format_ordered_list(text)
+
+        self.assertEqual(actual, expected)
+
+    def test__formatOrderedList_newLineBetweenItems(self):
+
+        text = ['1. Item one', '', '1. Item two', '', '4. Item three']
+
+        expected = ['1. Item one', '', '2. Item two', '', '3. Item three']
+        actual = list_utils._format_ordered_list(text)
+
+        self.assertEqual(actual, expected)
+
+    def test__formatOrderedList_newLineBetweenItems_multipleLevels(self):
+
+        text = ['1. Item one', '', '\t2. Sub item one', '', '3. Item two']
+
+        expected = ['1. Item one', '', '\t1. Sub item one', '', '2. Item two']
+        actual = list_utils._format_ordered_list(text)
+
+        self.assertEqual(actual, expected)
+
+    def test__formatOrderedList_newLineAtEnd(self):
+
+        text = ['1. Item one', '1. Item two', '']
+
+        expected = ['1. Item one', '2. Item two', '']
+        actual = list_utils._format_ordered_list(text)
 
         self.assertEqual(actual, expected)
 
@@ -542,5 +495,25 @@ class ListUtilsTests(unittest.TestCase):
                                                is_group_member=list_utils._is_unordered_list_item,
                                                process_group=list_utils._format_unordered_list,
                                                process_group_parameters={'delimiters': delimiters})
+
+        self.assertEqual(actual, expected)
+
+    #
+    # fix_ordered_list_numbering
+    #
+
+    @patch('util_utils.process_groups')
+    def test_fixOrderedListNumbering(self, mock_process_groups):
+
+        input_text = 'this is the input'
+        expected = 'this is the different'
+
+        mock_process_groups.return_value = expected
+
+        actual = list_utils.fix_ordered_list_numbering(input_text)
+
+        mock_process_groups.assert_called_with(input_text,
+                                               is_group_member=list_utils._is_ordered_list_item,
+                                               process_group=list_utils._format_ordered_list)
 
         self.assertEqual(actual, expected)
