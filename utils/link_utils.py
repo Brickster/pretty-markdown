@@ -27,24 +27,6 @@ def format_link_reference_definitions(text):
     return util_utils.process_groups(text, is_group_member=is_link_reference_definition, process_group=_format_links)
 
 
-def _append_missing_links(link_definitions, text, default_definition='404'):
-    """Appends any missing links that appear before the link definitions."""
-
-    link_definitions_string = '\n'.join(link_definitions)
-    link_definitions_start = text.index(link_definitions_string)
-
-    definitions = {m.group(1): m.group(2) for m in re.finditer(LINK_REFERENCE_DEFINITION_REGEX, link_definitions_string, flags=re.MULTILINE)}
-    links = {m.group(1): m.group(2) for m in re.finditer(LINK_REFERENCE_PATTERN, text) if m.start() < link_definitions_start}
-
-    missing_links = [key for key in links if key not in definitions]
-
-    for key in missing_links:
-        new_def = '[{}]: {}'.format(key, default_definition)
-        link_definitions.append(new_def)
-
-    return link_definitions
-
-
 def _create_link_definitions(link_ids, definition_pairs, default_definition='404'):
 
     if definition_pairs is None:
