@@ -1,3 +1,5 @@
+from unittest.mock import MagicMock
+from unittest.mock import patch
 from utils import list_utils
 
 import unittest
@@ -9,7 +11,7 @@ class ListUtilsTests(unittest.TestCase):
     # alternate_unordered_list_delimiters
     #
 
-    def test_alternateUnorderedListDelimiters(self):
+    def test_alternateUnorderedListDelimiters_nonMock(self):
 
         text = """- item 1
     * sub item
@@ -235,7 +237,7 @@ class ListUtilsTests(unittest.TestCase):
         self.assertFalse(is_item)
 
     #
-    # _is_unordered_list_item
+    # _is_ordered_list_item
     #
 
     def test__isOrderedListItem(self):
@@ -393,7 +395,7 @@ class ListUtilsTests(unittest.TestCase):
     # fix_ordered_list_numbering
     #
 
-    def test_fixOrderedListNumbering(self):
+    def test_fixOrderedListNumbering_nonMock(self):
 
         text = '2. item one'
 
@@ -498,5 +500,47 @@ class ListUtilsTests(unittest.TestCase):
 
         expected = '1. Item one\n2. Item two\n'
         actual = list_utils.fix_ordered_list_numbering(text)
+
+        self.assertEqual(actual, expected)
+
+    #
+    # fix_ordered_list_numbering
+    #
+
+    @patch('util_utils.process_groups')
+    def test_fixOrderedListNumbering(self, mock_process_groups):
+
+        input_text = 'this is the input'
+        expected = 'this is the different'
+
+        mock_process_groups.return_value = expected
+
+        actual = list_utils.fix_ordered_list_numbering(input_text)
+
+        mock_process_groups.assert_called_with(input_text,
+                                               is_group_member=list_utils._is_ordered_list_item,
+                                               process_group=list_utils._format_ordered_list)
+
+        self.assertEqual(actual, expected)
+
+    #
+    # alternate_unordered_list_delimiters
+    #
+
+    @patch('util_utils.process_groups')
+    def test_alternateUnorderedListDelimiters(self, mock_process_groups):
+
+        input_text = 'this is the input'
+        delimiters = ['-']
+        expected = 'this is the different'
+
+        mock_process_groups.return_value = expected
+
+        actual = list_utils.alternate_unordered_list_delimiters(input_text, delimiters)
+
+        mock_process_groups.assert_called_with(input_text,
+                                               is_group_member=list_utils._is_unordered_list_item,
+                                               process_group=list_utils._format_unordered_list,
+                                               process_group_parameters={'delimiters': delimiters})
 
         self.assertEqual(actual, expected)
