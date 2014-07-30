@@ -2,13 +2,12 @@ from utils import util_utils
 
 import unittest
 
+
 class UtilUtilsTests(unittest.TestCase):
 
     #
     # process_groups
     #
-
-    # def process_groups(text, is_group_member, process_group, is_group_member_parameters={}, process_group_parameters={}):
 
     def test_processGroups(self):
 
