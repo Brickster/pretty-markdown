@@ -21,12 +21,13 @@ class PrettyMarkdownSaveListenerCommand(sublime_plugin.EventListener):
     def on_pre_save(self, view):
         """Runs Pretty Markdown pre-save actions"""
 
-        # save a copy of the file before editting
-        r = sublime.Region(0, view.size())
-        text = view.substr(r)
-        self.save_text(text)
-
         extension = os.path.splitext(view.file_name())[1][1:]
         if extension in pretty_markdown.settings().get('format_files_with_extension'):
             if (pretty_markdown.settings().get("format_on_save")):
+
+                # save a copy of the file before editting
+                r = sublime.Region(0, view.size())
+                text = view.substr(r)
+                self.save_text(text)
+
                 view.run_command("format_markdown")
