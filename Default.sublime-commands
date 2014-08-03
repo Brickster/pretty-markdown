@@ -1,0 +1,6 @@
+[
+    {
+        "caption": "Pretty Markdown: Revert Formatting",
+        "command": "revert_formatting"
+    }
+]
