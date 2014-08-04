@@ -2,7 +2,7 @@ import re
 import util_utils
 
 LINK_REFERENCE_DEFINITION_REGEX = r'^\[(.*?)\]:\s+(.+?(?:\s+".*")?)$'
-LINK_REFERENCE_REGEX = r'\[(.+?)\]\[(.*?)\]'
+LINK_REFERENCE_REGEX = r'!?\[(.+?)\]\[(.*?)\]'
 
 
 def is_link_reference_definition(text):

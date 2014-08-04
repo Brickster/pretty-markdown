@@ -59,6 +59,13 @@ class LinkUtilsTests(unittest.TestCase):
 
         self.assertFalse(is_reference)
 
+    def test_isLinkReferenceDefinition_startsWithExclamationMark(self):
+
+        text = '![Google Logo]: http://google.com/logo'
+        is_reference = link_utils.is_link_reference_definition(text)
+
+        self.assertFalse(is_reference)
+
     #
     # _format_links
     #
@@ -196,6 +203,24 @@ class LinkUtilsTests(unittest.TestCase):
         text = 'This has a missing [link][] definition.'
 
         expected = 'This has a missing [link][] definition.\n\n[link]: 404'
+        actual = link_utils.discover_missing_links(text)
+
+        self.assertEqual(actual, expected)
+
+    def test_discoverMissingLinks_containsImage(self):
+
+        text = 'This has a missing ![image link][] definition.'
+
+        expected = 'This has a missing ![image link][] definition.\n\n[image link]: 404'
+        actual = link_utils.discover_missing_links(text)
+
+        self.assertEqual(actual, expected)
+
+    def test_discoverMissingLinks_containsImageAndLink(self):
+
+        text = 'This has a missing ![image link][] definition and a [normal link][].'
+
+        expected = 'This has a missing ![image link][] definition and a [normal link][].\n\n[image link]: 404\n[normal link]: 404'
         actual = link_utils.discover_missing_links(text)
 
         self.assertEqual(actual, expected)
