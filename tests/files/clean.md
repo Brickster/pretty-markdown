@@ -88,6 +88,13 @@ You can also use [DuckDuckGo][] but I never have.
 
 [DuckDuckGo]: https://duckduckgo.com/
 
+### Images ###
+
+You can also reference ![images][] as if they were a normal ![link][].
+
+[link]:   http://link.com
+[images]: 404
+
 ## Lists ##
 
 ### Unordered ###
