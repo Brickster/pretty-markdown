@@ -1,6 +1,8 @@
 import sublime
 import sublime_plugin
 
+SETTINGS_FILENAME = 'Pretty Markdown.sublime-settings'
+
 
 def command_names():
     """Returns a list of all command names."""
@@ -23,7 +25,7 @@ def command_names():
 def settings():
     """Retrieves the settings file."""
 
-    return sublime.load_settings("Pretty Markdown.sublime-settings")
+    return sublime.load_settings(SETTINGS_FILENAME)
 
 
 class PrettyMarkdownCommand(sublime_plugin.TextCommand):
