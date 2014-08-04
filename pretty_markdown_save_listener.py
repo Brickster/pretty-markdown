@@ -4,7 +4,7 @@ import sublime
 import sublime_plugin
 
 
-class PrettyMarkdownSaveListenerCommand(sublime_plugin.EventListener):
+class MarkdownSaveListener(sublime_plugin.EventListener):
 
     def save_text(self, text):
         """Creates a backup of the text."""
