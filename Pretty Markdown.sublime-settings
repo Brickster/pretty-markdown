@@ -9,8 +9,13 @@
     // trims all whitespace that isn't for breaking (two spaces)
     "trim_non_breaking_whitespace":true,
 
-    // for atx style, balances hashes; for setext style, matches the header line to the title length
+    // headers are converted to a given style (atx/setext/both) and balanced accordingly (balanced/unbalanced/no preference)
+    // the atx balanced preference matches hashes on both sides and setext balanced 
+    // for atx, balanced means hashes are matches on either side, unbalanced means hashes on the right are removed
+    // for setext, balanced means the header delimiter length matches the header's length while unbalanced does nothing
+    // for either selection, 'no preference' will leave the header as is
     "fix_header_balancing":true,
+    "header_balancing":"balanced",
     "convert_headers":true,
     "header_style":"atx",
 
