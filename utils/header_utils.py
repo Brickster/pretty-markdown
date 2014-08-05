@@ -2,6 +2,9 @@ import re
 
 SETEXT_HEADER_PATTERN = re.compile(r'^(?:={3,}|-{3,})$')
 
+BALANCED = 'balanced'
+UNBALANCED = 'unbalanced'
+
 
 def is_setext_header(text):
     """Determines if text is a setext type header line."""
@@ -9,24 +12,30 @@ def is_setext_header(text):
     return text is not None and SETEXT_HEADER_PATTERN.match(text) is not None
 
 
-def fix_header_balancing(text):
+def fix_header_balancing(text, balancing=BALANCED):
     """Balances headers."""
 
-    # fix atx headers
-    text = re.sub(r'^((#+)\s.*?)(?:\s#+)?$', r'\1 \2', text, flags=re.MULTILINE)
+    if balancing == BALANCED:
 
-    # setext headers
-    prev = None
-    output = []
+        # balance atx headers
+        text = re.sub(r'^((#+)\s.*?)(?:\s#+)?$', r'\1 \2', text, flags=re.MULTILINE)
 
-    for line in text.split('\n'):
+        # balance setext headers
+        prev = None
+        output = []
 
-        if prev is not None and is_setext_header(line) and len(prev.strip()) != 0:
-            line = line[0] * len(prev)
+        for line in text.split('\n'):
 
-        output.append(line)
-        prev = line
+            if prev is not None and is_setext_header(line) and len(prev.strip()) != 0:
+                line = line[0] * len(prev)
 
-    text = '\n'.join(output)
+            output.append(line)
+            prev = line
+
+        text = '\n'.join(output)
+    else:
+
+        # unbalance atx headers
+        text = re.sub(r'^((#+)\s.*?)(?:\s#+)?$', r'\1', text, flags=re.MULTILINE)
 
     return text

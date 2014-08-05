@@ -136,6 +136,60 @@ class HeaderUtilsTests(unittest.TestCase):
 
         self.assertEqual(actual, expected)
 
+    def test_fixHeaderBalancing_atx_unbalanced(self):
+
+        text = '# Header 1 #'
+
+        expected = '# Header 1'
+        actual = header_utils.fix_header_balancing(text, header_utils.UNBALANCED)
+
+        self.assertEqual(actual, expected)
+
+    def test_fixHeaderBalancing_atx_unbalanced_noChange(self):
+
+        text = '# Header 1'
+
+        expected = '# Header 1'
+        actual = header_utils.fix_header_balancing(text, header_utils.UNBALANCED)
+
+        self.assertEqual(actual, expected)
+
+    def test_fixHeaderBalancing_atx_unbalanced_leftHeavy(self):
+
+        text = '## Header 2 #'
+
+        expected = '## Header 2'
+        actual = header_utils.fix_header_balancing(text, header_utils.UNBALANCED)
+
+        self.assertEqual(actual, expected)
+
+    def test_fixHeaderBalancing_atx_unbalanced_rightHeavy(self):
+
+        text = '## Header 2 ###'
+
+        expected = '## Header 2'
+        actual = header_utils.fix_header_balancing(text, header_utils.UNBALANCED)
+
+        self.assertEqual(actual, expected)
+
+    def test_fixHeaderBalancing_setext_unbalanced(self):
+
+        text = 'Header 1\n====='
+
+        expected = 'Header 1\n====='
+        actual = header_utils.fix_header_balancing(text, header_utils.UNBALANCED)
+
+        self.assertEqual(actual, expected)
+
+    def test_fixHeaderBalancing_setext_unbalanced_alreadyBalanced(self):
+
+        text = 'Header 1\n========'
+
+        expected = 'Header 1\n========'
+        actual = header_utils.fix_header_balancing(text, header_utils.UNBALANCED)
+
+        self.assertEqual(actual, expected)
+
     #
     # is_setext_header
     #
