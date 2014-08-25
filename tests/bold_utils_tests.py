@@ -147,4 +147,5 @@ class BoldUtilsTests(unittest.TestCase):
 
     def test_convertBolds_wrongCharacter(self):
 
-        self.assertRaises(AssertionError, bold_utils.convert_bolds, '', '^')
+        with self.assertRaisesRegex(AssertionError, 'character must be one of *'):
+            bold_utils.convert_bolds('', '^')

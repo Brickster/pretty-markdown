@@ -197,4 +197,5 @@ class ItalicUtilsTests(unittest.TestCase):
 
     def test_convertItalics_wrongCharacter(self):
 
-        self.assertRaises(AssertionError, italic_utils.convert_italics, '', '^')
+        with self.assertRaisesRegex(AssertionError, 'character must be one of *'):
+            italic_utils.convert_italics('', '^')

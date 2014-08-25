@@ -121,7 +121,8 @@ class HorizontalRuleUtilsTests(unittest.TestCase):
 
     def test_convertHorizontalRules_invalidHorizontalRule(self):
 
-        self.assertRaises(AssertionError, horizontal_rule_utils.convert_horizontal_rules, '', 'mmm')
+        with self.assertRaisesRegex(AssertionError, 'A horizontal rule is defined by three or more hyphens, asterisks, or underscores with optional spaces in between.'):
+            horizontal_rule_utils.convert_horizontal_rules('', 'mmm')
 
     def test_convertHorizontalRules_multipleRules(self):
 
